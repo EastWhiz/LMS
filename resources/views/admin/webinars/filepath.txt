@@ -1,0 +1,4 @@
+Please replace the following files with the specified paths to enable the "Text courses" plugin:
+
+create.blade.php >>>>>>> resources\views\admin\webinars
+step_1.blade.php >>>>>>> resources\views\web\default\panel\webinar\create_includes
