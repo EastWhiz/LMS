@@ -1,0 +1,116 @@
+{
+    "name": "laravel/laravel",
+    "type": "project",
+    "description": "The Laravel Framework.",
+    "keywords": ["framework", "laravel"],
+    "license": "MIT",
+    "require": {
+        "php": "^7.1||^8.0.2",
+        "akcybex/laravel-jazzcash": "^1.0",
+        "anandsiddharth/laravel-paytm-wallet": "^1.0",
+        "astrotomic/laravel-translatable": "^11.11",
+        "authorizenet/authorizenet": "^2.0",
+        "cashuanony/phpanonymous": "dev-master",
+        "chehivskiy/i18n-arabic": "^1.0",
+        "cviebrock/eloquent-sluggable": "^9.0",
+        "fideloper/proxy": "^4.4",
+        "fruitcake/laravel-cors": "^3.0",
+        "guzzlehttp/guzzle": "^7.2",
+        "hiqdev/omnipay-robokassa": "^3.3",
+        "instamojo/instamojo-php": "^1.0",
+        "irakan/paylink": "^1.1",
+        "iyzico/iyzipay-php": "^2.0",
+        "james-heinrich/getid3": "^1.9",
+        "jorenvanhocht/laravel-share": "^4.2",
+        "laravel/framework": "^9.19",
+        "laravel/sanctum": "^3.0",
+        "laravel/socialite": "^5.6",
+        "laravel/tinker": "^2.7",
+        "laravel/ui": "^4.2",
+        "lasserafn/php-initials": "^3.1",
+        "league/omnipay": "^3.2",
+        "lyracom/rest-php-sdk": "^4.0",
+        "maatwebsite/excel": "^3.1",
+        "mews/captcha": "^3.2",
+        "midtrans/midtrans-php": "^2.5",
+        "mmockelyn/flysystem-aws-s3-v3-minio": "^1.0",
+        "myonlinestore/omnipay-klarna-checkout": "^5.0",
+        "omnipay/braintree": "~4.0@dev",
+        "omnipay/common": "^3.2",
+        "omnipay/mollie": "^5.5",
+        "php-http/guzzle7-adapter": "^1.0",
+        "psr/log": "^1.0",
+        "ptuchik/omnipay-yandex": "~1.0",
+        "razorpay/razorpay": "2.*",
+        "sebacarrasco93/laravel-payku": "^1.0",
+        "semyonchetvertnyh/omnipay-paysera": "^0.1.0",
+        "shetabit/payment": "^4.3",
+        "spatie/calendar-links": "^1.8",
+        "spatie/laravel-google-calendar": "^3.5",
+        "ssheduardo/redsys-laravel": "~1.4.0",
+        "stripe/stripe-php": "^10.6",
+        "twilio/sdk": "^6.44",
+        "tymon/jwt-auth": "^2.0",
+        "tzsk/payu": "^6.0",
+        "unicodeveloper/laravel-paystack": "^1.0",
+        "unisharp/laravel-filemanager": "^2.5",
+        "vrajroham/laravel-bitpay": "^6.0"
+    },
+    "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.8",
+        "fakerphp/faker": "^1.9.1",
+        "laravel/pint": "^1.0",
+        "laravel/sail": "^1.0.1",
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/collision": "^6.1",
+        "phpunit/phpunit": "^9.5.10",
+        "spatie/laravel-ignition": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        },
+        "files": [
+            "app/Helpers/helper.php",
+            "app/Mixins/Geo/Geo.php",
+            "app/Helpers/ApiHelper.php"
+        ]
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
