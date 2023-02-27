@@ -135,7 +135,7 @@ class LoginController extends Controller
     public function afterLogged(Request $request, $verify = false)
     {
         $user = auth()->user();
-
+        
         if ($user->ban) {
             $time = time();
             $endBan = $user->ban_end_at;
@@ -153,29 +153,28 @@ class LoginController extends Controller
                 ]);
             }
         }
+        // if ($user->status != User::$active and !$verify) {
+        //     $this->guard()->logout();
+        //     $request->session()->flush();
+        //     $request->session()->regenerate();
 
-        if ($user->status != User::$active and !$verify) {
-            $this->guard()->logout();
-            $request->session()->flush();
-            $request->session()->regenerate();
+        //     $verificationController = new VerificationController();
+        //     $checkConfirmed = $verificationController->checkConfirmed($user, $this->username(), $request->get('username'));
+            
+        //     if ($checkConfirmed['status'] == 'send') {
+        //         return redirect('/verification');
+        //     }
+        // } elseif ($verify) {
+        //     session()->forget('verificationId');
 
-            $verificationController = new VerificationController();
-            $checkConfirmed = $verificationController->checkConfirmed($user, $this->username(), $request->get('username'));
+        //     $user->update([
+        //         'status' => User::$active,
+        //     ]);
 
-            if ($checkConfirmed['status'] == 'send') {
-                return redirect('/verification');
-            }
-        } elseif ($verify) {
-            session()->forget('verificationId');
-
-            $user->update([
-                'status' => User::$active,
-            ]);
-
-            $registerReward = RewardAccounting::calculateScore(Reward::REGISTER);
-            RewardAccounting::makeRewardAccounting($user->id, $registerReward, Reward::REGISTER, $user->id, true);
-        }
-
+        //     $registerReward = RewardAccounting::calculateScore(Reward::REGISTER);
+        //     RewardAccounting::makeRewardAccounting($user->id, $registerReward, Reward::REGISTER, $user->id, true);
+        // }
+        
         if ($user->status != User::$active) {
             $this->guard()->logout();
             $request->session()->flush();
@@ -186,7 +185,7 @@ class LoginController extends Controller
 
         $cartManagerController = new CartManagerController();
         $cartManagerController->storeCookieCartsToDB();
-
+        $user = new User();
         if ($user->isAdmin()) {
             return redirect('/admin');
         } else {

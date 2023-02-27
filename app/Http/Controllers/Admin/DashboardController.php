@@ -21,7 +21,7 @@ class DashboardController extends Controller
     public function index()
     {
         $this->authorize('admin_general_dashboard_show');
-
+        
         if (Gate::allows('admin_general_dashboard_daily_sales_statistics')) {
             $dailySalesTypeStatistics = $this->dailySalesTypeStatistics();
         }
@@ -74,7 +74,7 @@ class DashboardController extends Controller
         if (Gate::allows('admin_general_dashboard_users_statistics_chart')) {
             $usersStatisticsChart = $this->usersStatisticsChart();
         }
-
+        
         $data = [
             'pageTitle' => trans('admin/main.general_dashboard_title'),
             'dailySalesTypeStatistics' => $dailySalesTypeStatistics ?? null,

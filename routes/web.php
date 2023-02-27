@@ -29,7 +29,7 @@ Route::group(['prefix' => 'api_sessions'], function () {
 Route::get('/mobile-app', 'Web\MobileAppController@index')->middleware(['share'])->name('mobileAppRoute');
 
 
-Route::group(['namespace' => 'Auth', 'middleware' => ['check_mobile_app', 'share']], function () {
+Route::group(['namespace' => 'App\Http\Controllers\Auth', 'middleware' => ['check_mobile_app', 'share']], function () {
     Route::get('/login', 'LoginController@showLoginForm');
     Route::post('/login', 'LoginController@login');
     Route::get('/logout', 'LoginController@logout');
@@ -318,4 +318,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Web', 'middleware' => ['check
         Route::post('/customize', 'CookieSecurityController@setCustomize');
     });
 });
+
+
 

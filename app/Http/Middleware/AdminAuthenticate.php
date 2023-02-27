@@ -20,7 +20,7 @@ class AdminAuthenticate
     public function handle($request, Closure $next)
     {
         if (auth()->check() and auth()->user()->isAdmin()) {
-
+            
             if (auth()->user()->hasPermission('admin_notifications_list')) {
                 $adminUser = User::find(1);
 
@@ -33,7 +33,7 @@ class AdminAuthenticate
 
             $generalSettings = getGeneralSettings();
             view()->share('generalSettings', $generalSettings);
-
+            
 
             $userLanguages = $this->getUserLanguagesLists($generalSettings);
 
@@ -44,7 +44,7 @@ class AdminAuthenticate
 
             $user = auth()->user();
             view()->share('authUser', $user);
-
+            
             $sidebarController = new SidebarController();
 
             $sidebarBeeps = [];
