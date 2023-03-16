@@ -58,16 +58,16 @@
                     <ul class="dropdown-menu">
                         @can('admin_webinars_list')
                             <li class="{{ (request()->is('admin/webinars') and request()->get('type') == 'course') ? 'active' : '' }}">
-                                <a class="nav-link @if(!empty($sidebarBeeps['courses']) and $sidebarBeeps['courses']) beep beep-sidebar @endif" href="/admin/webinars?type=course">{{ trans('admin/main.courses') }}</a>
+                                <a class="nav-link @if(!empty($sidebarBeeps['courses']) and $sidebarBeeps['courses']) beep beep-sidebar @endif" href="/admin/webinars?type=video">{{ trans('admin/main.courses') }}</a>
                             </li>
 
-                            <li class="{{ (request()->is('admin/webinars') and request()->get('type') == 'webinar') ? 'active' : '' }}">
+                            {{-- <li class="{{ (request()->is('admin/webinars') and request()->get('type') == 'webinar') ? 'active' : '' }}">
                                 <a class="nav-link @if(!empty($sidebarBeeps['webinars']) and $sidebarBeeps['webinars']) beep beep-sidebar @endif" href="/admin/webinars?type=webinar">{{ trans('admin/main.live_classes') }}</a>
-                            </li>
+                            </li> --}}
 
-                            <li class="{{ (request()->is('admin/webinars') and request()->get('type') == 'text_lesson') ? 'active' : '' }}">
+                            {{-- <li class="{{ (request()->is('admin/webinars') and request()->get('type') == 'text_lesson') ? 'active' : '' }}">
                                 <a class="nav-link @if(!empty($sidebarBeeps['textLessons']) and $sidebarBeeps['textLessons']) beep beep-sidebar @endif" href="/admin/webinars?type=text_lesson">{{ trans('admin/main.text_courses') }}</a>
-                            </li>
+                            </li> --}}
                         @endcan()
 
                         @can('admin_webinars_create')
@@ -77,16 +77,16 @@
                         @endcan()
 
                         @can('admin_agora_history_list')
-                            <li class="{{ (request()->is('admin/agora_history')) ? 'active' : '' }}">
+                            {{-- <li class="{{ (request()->is('admin/agora_history')) ? 'active' : '' }}">
                                 <a class="nav-link" href="/admin/agora_history">{{ trans('update.agora_history') }}</a>
-                            </li>
+                            </li> --}}
                         @endcan
 
                     </ul>
                 </li>
             @endcan()
 
-            @can('admin_bundles')
+            {{-- @can('admin_bundles')
                 <li class="nav-item dropdown {{ (request()->is('admin/bundles*') and !request()->is('admin/bundles/comments*')) ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                         <i class="fas fa-cube"></i>
@@ -106,14 +106,27 @@
                         @endcan()
                     </ul>
                 </li>
-            @endcan()
+            @endcan() --}}
 
             @can('admin_quizzes')
-                <li class="{{ (request()->is('admin/quizzes*')) ? 'active' : '' }}">
-                    <a class="nav-link " href="/admin/quizzes">
+                <li class="nav-item dropdown {{ (request()->is('admin/quizzes*')) ? 'active' : '' }}">
+                    <a class="nav-link has-dropdown" href="#">
                         <i class="fas fa-file"></i>
                         <span>{{ trans('admin/main.quizzes') }}</span>
                     </a>
+                    
+                    <ul class="dropdown-menu">
+                        <li class="{{ (request()->is('admin/quizzes*')) ? 'active' : '' }}" >
+                            <a href="/admin/quizzes" class="nav-link ">
+                                <span>List</span>
+                            </a>
+                        </li>
+                        <li class="{{ (request()->is('admin/quizzes/create*')) ? 'active' : '' }}">
+                            <a href="/admin/quizzes/create" class="nav-link ">
+                                <span>New</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             @endcan()
 
@@ -331,11 +344,11 @@
                             </li>
                         @endcan()
 
-                        @can('admin_instructors_list')
+                        {{-- @can('admin_instructors_list')
                             <li class="{{ (request()->is('admin/instructors')) ? 'active' : '' }}">
                                 <a class="nav-link" href="/admin/instructors">{{ trans('home.instructors') }}</a>
                             </li>
-                        @endcan()
+                        @endcan() --}}
 
                         @can('admin_organizations_list')
                             <li class="{{ (request()->is('admin/organizations')) ? 'active' : '' }}">

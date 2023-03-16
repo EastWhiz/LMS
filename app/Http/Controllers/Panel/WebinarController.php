@@ -286,7 +286,7 @@ class WebinarController extends Controller
         $currentStep = $request->get('current_step', 1);
 
         $rules = [
-            'type' => 'required|in:webinar,course,text_lesson',
+            //'type' => 'required|in:webinar,course,text_lesson',
             'title' => 'required|max:255',
             'thumbnail' => 'required',
             'image_cover' => 'required',
@@ -296,7 +296,6 @@ class WebinarController extends Controller
         $this->validate($request, $rules);
 
         $data = $request->all();
-
         if (empty($data['video_demo'])) {
             $data['video_demo_source'] = null;
         }
@@ -318,7 +317,7 @@ class WebinarController extends Controller
             'status' => ((!empty($data['draft']) and $data['draft'] == 1) or (!empty($data['get_next']) and $data['get_next'] == 1)) ? Webinar::$isDraft : Webinar::$pending,
             'created_at' => time(),
         ]);
-
+        $data["locale"] = "en";
         if ($webinar) {
             WebinarTranslation::updateOrCreate([
                 'webinar_id' => $webinar->id,
@@ -328,6 +327,9 @@ class WebinarController extends Controller
                 'description' => $data['description'],
                 'seo_description' => $data['seo_description'],
             ]);
+
+            // $FileController = new FileController;
+            // $FileController->store($request);
         }
 
         $url = '/panel/webinars';
@@ -520,7 +522,7 @@ class WebinarController extends Controller
 
         if ($currentStep == 1) {
             $rules = [
-                'type' => 'required|in:webinar,course,text_lesson',
+                //'type' => 'required|in:webinar,course,text_lesson',
                 'title' => 'required|max:255',
                 'thumbnail' => 'required',
                 'image_cover' => 'required',
@@ -528,18 +530,18 @@ class WebinarController extends Controller
             ];
         }
 
-        if ($currentStep == 2) {
-            $rules = [
-                'category_id' => 'required',
-                'duration' => 'required|numeric',
-                'partners' => 'required_if:partner_instructor,on',
-            ];
+        // if ($currentStep == 2) {
+        //     $rules = [
+        //         'category_id' => 'required',
+        //         'duration' => 'required|numeric',
+        //         'partners' => 'required_if:partner_instructor,on',
+        //     ];
 
-            if ($webinar->isWebinar()) {
-                $rules['start_date'] = 'required|date';
-                $rules['capacity'] = 'required|integer';
-            }
-        }
+        //     if ($webinar->isWebinar()) {
+        //        $rules['start_date'] = 'required|date';
+        //         $rules['capacity'] = 'required|integer';
+        //     }
+        // }
 
         $webinarRulesRequired = false;
         if (($currentStep == 8 and !$getNextStep and !$isDraft) or (!$getNextStep and !$isDraft)) {
@@ -651,6 +653,9 @@ class WebinarController extends Controller
                 'seo_description' => $data['seo_description'],
             ]);
         }
+
+        // $FileController = new FileController;
+        // $FileController->update($request);
 
         unset($data['_token'],
             $data['current_step'],

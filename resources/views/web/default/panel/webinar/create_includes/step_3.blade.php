@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-12 col-md-6">
 
-        <div class="form-group mt-30 d-flex align-items-center justify-content-between mb-5">
+        <div class="form-group mt-30 d-none align-items-center justify-content-between mb-5">
             <label class="cursor-pointer input-label" for="subscribeSwitch">{{ trans('update.include_subscribe') }}</label>
             <div class="custom-control custom-switch">
                 <input type="checkbox" name="subscribe" class="custom-control-input" id="subscribeSwitch" {{ !empty($webinar) && $webinar->subscribe ? 'checked' : (old('subscribe') ? 'checked' : '')  }}>
@@ -29,7 +29,7 @@
             <p class="font-12 text-gray mt-10">- {{ trans('update.access_days_input_hint') }}</p>
         </div>
 
-        <div class="form-group mt-15">
+        <div class="form-group mt-15 d-none">
             <label class="input-label">{{ trans('public.price') }}</label>
             <input type="number" name="price" value="{{ !empty($webinar) ? $webinar->price : old('price') }}" class="form-control @error('price')  is-invalid @enderror" placeholder="{{ trans('public.0_for_free') }}"/>
             @error('price')
@@ -40,7 +40,7 @@
         </div>
 
         @if($authUser->isOrganization() and $authUser->id == $webinar->creator_id)
-            <div class="form-group mt-15">
+            <div class="form-group mt-15 d-none">
                 <label class="input-label">{{ trans('update.organization_price') }}</label>
                 <input type="number" name="organization_price" value="{{ !empty($webinar) ? $webinar->organization_price : old('organization_price') }}" class="form-control @error('organization_price')  is-invalid @enderror" placeholder=""/>
                 @error('organization_price')
@@ -55,7 +55,7 @@
 </div>
 
 <section class="mt-30">
-    <div class="">
+    <div class="d-none">
         <h2 class="section-title after-line">{{ trans('webinars.sale_plans') }} ({{ trans('public.optional') }})</h2>
 
 
@@ -66,9 +66,9 @@
         </div>
     </div>
 
-    <button id="webinarAddTicket" data-webinar-id="{{ $webinar->id }}" type="button" class="btn btn-primary btn-sm mt-15">{{ trans('public.add_plan') }}</button>
+    <button id="webinarAddTicket" data-webinar-id="{{ $webinar->id }}" type="button" class="btn btn-primary btn-sm mt-15 d-none">{{ trans('public.add_plan') }}</button>
 
-    <div class="row mt-10">
+    <div class="row mt-10 d-none">
         <div class="col-12">
 
             <div class="accordion-content-wrapper mt-15" id="ticketsAccordion" role="tablist" aria-multiselectable="true">

@@ -30,19 +30,19 @@
             'icon' => 'skills'
         ],
 
-        7 => [
-            'lang' => 'public.identity_and_financial',
-            'icon' => 'financial'
-        ]
+        // 7 => [
+        //     'lang' => 'public.identity_and_financial',
+        //     'icon' => 'financial'
+        // ]
     ];
 
     if(!$user->isUser()) {
-        $progressSteps[8] =[
-            'lang' => 'public.zoom_api',
-            'icon' => 'zoom'
-        ];
+        // $progressSteps[8] =[
+        //     'lang' => 'public.zoom_api',
+        //     'icon' => 'zoom'
+        // ];
 
-        $progressSteps[9] =[
+        $progressSteps[7] =[
             'lang' => 'public.extra_information',
             'icon' => 'extra_info'
         ];

@@ -8,7 +8,7 @@
     @if(empty($new_user))
         @include('web.default.panel.setting.setting_includes.progress')
     @endif
-
+ 
     <form method="post" id="userSettingForm" class="mt-30" action="{{ (!empty($new_user)) ? '/panel/manage/'. $user_type .'/new' : '/panel/setting' }}">
         {{ csrf_field() }}
         <input type="hidden" name="step" value="{{ !empty($currentStep) ? $currentStep : 1 }}">
@@ -45,17 +45,17 @@
                 @include('web.default.panel.setting.setting_includes.occupations')
                 @break
 
-                @case(7)
+                {{-- @case(7)
                 @include('web.default.panel.setting.setting_includes.identity_and_financial')
-                @break
+                @break --}}
 
-                @case(8)
+                {{-- @case(8)
                 @if(!$user->isUser())
                     @include('web.default.panel.setting.setting_includes.zoom_api')
                 @endif
-                @break
+                @break --}}
 
-                @case(9)
+                @case(7)
                 @if(!$user->isUser())
                     @include('web.default.panel.setting.setting_includes.settings')
                 @endif

@@ -62,7 +62,8 @@ class User extends Authenticatable
     private $user_group;
     private $userInfo;
 
-
+    public $role;
+    
     static function getAdmin()
     {
         $role = Role::where('name', Role::$admin)->first();
@@ -76,7 +77,7 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->role->is_admin;
+        return $this->role_name === Role::$admin;
     }
 
     public function isUser()

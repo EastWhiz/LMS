@@ -9,8 +9,8 @@
         <div class="section-header">
             <h1>{{ trans('admin/main.students') }} {{ trans('admin/main.list') }}</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a>{{ trans('admin/main.students') }}</a></div>
-                <div class="breadcrumb-item"><a href="#">{{ trans('admin/main.users_list') }}</a></div>
+                <div class="breadcrumb-item active"><a href="#">{{ trans('admin/main.users_list') }}</a></div>
+                <div class="breadcrumb-item"><a>{{ trans('admin/main.students') }}</a></div>
             </div>
         </div>
     </section>

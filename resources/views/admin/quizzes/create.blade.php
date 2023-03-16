@@ -48,8 +48,14 @@
 
                                             <div class="form-group">
                                                 <label class="input-label d-block">{{ trans('admin/main.webinar') }}</label>
-                                                <select name="webinar_id" class="form-control search-webinar-select2 @error('webinar_id') is-invalid @enderror" data-placeholder="{{ trans('admin/main.search_webinar') }}">
-
+                                                @php
+                                                    $webinars = \App\Models\Webinar::where("type", "video")->get();
+                                                @endphp
+                                                <select name="webinar_id" class="form-control  @error('webinar_id') is-invalid @enderror" data-placeholder="{{ trans('admin/main.search_webinar') }}">
+                                                    <option value="">Select Video</option>
+                                                   @foreach ($webinars as $webinar)
+                                                       <option value="{{$webinar->id}}">{{$webinar->title}}</option>
+                                                   @endforeach
                                                 </select>
 
                                                 @error('webinar_id')

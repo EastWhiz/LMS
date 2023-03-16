@@ -66,10 +66,11 @@
                                                 <input type="hidden" name="locale" value="{{ getDefaultLocale() }}">
                                             @endif
 
-                                            <div class="form-group mt-15 ">
+                                            <div class="form-group mt-15" hidden>
                                                 <label class="input-label d-block">{{ trans('panel.course_type') }}</label>
 
                                                 <select name="type" class="custom-select @error('type')  is-invalid @enderror">
+                                                    <option value="video">Video</option>
                                                     <option value="webinar" @if((!empty($webinar) and $webinar->isWebinar()) or old('type') == \App\Models\Webinar::$webinar) selected @endif>{{ trans('webinars.webinar') }}</option>
                                                     <option value="course" @if((!empty($webinar) and $webinar->isCourse()) or old('type') == \App\Models\Webinar::$course) selected @endif>{{ trans('product.video_course') }}</option>
                                                     <option>{{ trans('product.text_course') }} (Paid plugin)</option>
@@ -102,7 +103,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="form-group mt-15">
+                                            <div class="form-group mt-15" hidden>
                                                 <label class="input-label">{{ trans('admin/main.class_url') }}</label>
                                                 <input type="text" name="slug" value="{{ !empty($webinar) ? $webinar->slug : old('slug') }}" class="form-control @error('slug')  is-invalid @enderror" placeholder=""/>
                                                 <div class="text-muted text-small mt-1">{{ trans('admin/main.class_url_hint') }}</div>
@@ -113,8 +114,8 @@
                                                 @enderror
                                             </div>
 
-                                            @if(!empty($webinar) and $webinar->creator->isOrganization())
-                                                <div class="form-group mt-15 ">
+                                            @if(isset($webinar->creator) and $webinar->creator->isOrganization())
+                                                <div class="form-group mt-15 " hidden>
                                                     <label class="input-label d-block">{{ trans('admin/main.organization') }}</label>
 
                                                     <select name="organ_id" data-search-option="just_organization_role" class="form-control search-user-select2" data-placeholder="{{ trans('search_organization') }}">
@@ -124,13 +125,13 @@
                                             @endif
 
 
-                                            <div class="form-group mt-15 ">
+                                            <div class="form-group mt-15 " hidden>
                                                 <label class="input-label d-block">{{ trans('admin/main.select_a_instructor') }}</label>
 
                                                 <select name="teacher_id" data-search-option="except_user" class="form-control search-user-select2"
                                                         data-placeholder="{{ trans('public.select_a_teacher') }}"
                                                 >
-                                                    @if(!empty($webinar))
+                                                    @if(isset($webinar->teacher->id))
                                                         <option value="{{ $webinar->teacher->id }}" selected>{{ $webinar->teacher->full_name }}</option>
                                                     @else
                                                         <option selected disabled>{{ trans('public.select_a_teacher') }}</option>
@@ -201,7 +202,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group mt-25">
+                                            <div class="form-group mt-25" hidden>
                                                 <label class="input-label">{{ trans('public.demo_video') }} ({{ trans('public.optional') }})</label>
 
 
@@ -217,7 +218,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group mt-0">
+                                            <div class="form-group mt-0" hidden>
                                                 <label class="input-label font-12">{{ trans('update.path') }}</label>
                                                 <div class="input-group js-video-demo-path-input">
                                                     <div class="input-group-prepend">
@@ -262,7 +263,7 @@
 
                                             @if(empty($webinar) or (!empty($webinar) and $webinar->isWebinar()))
 
-                                                <div class="form-group mt-15 js-capacity {{ (!empty(old('type')) and old('type') != \App\Models\Webinar::$webinar) ? 'd-none' : '' }}">
+                                                <div class="form-group mt-15 js-capacity {{ (!empty(old('type')) and old('type') != \App\Models\Webinar::$webinar) ? 'd-none' : '' }}" hidden>
                                                     <label class="input-label">{{ trans('public.capacity') }}</label>
                                                     <input type="number" name="capacity" value="{{ !empty($webinar) ? $webinar->capacity : old('capacity') }}" class="form-control @error('capacity')  is-invalid @enderror"/>
                                                     @error('capacity')
@@ -275,7 +276,7 @@
 
                                             <div class="row mt-15">
                                                 @if(empty($webinar) or (!empty($webinar) and $webinar->isWebinar()))
-                                                    <div class="col-12 col-md-6 js-start_date {{ (!empty(old('type')) and old('type') != \App\Models\Webinar::$webinar) ? 'd-none' : '' }}">
+                                                    <div class="col-12 col-md-6 js-start_date {{ (!empty(old('type')) and old('type') != \App\Models\Webinar::$webinar) ? 'd-none' : '' }}" hidden>
                                                         <div class="form-group">
                                                             <label class="input-label">{{ trans('public.start_date') }}</label>
                                                             <div class="input-group">
@@ -295,7 +296,7 @@
                                                     </div>
                                                 @endif
 
-                                                <div class="col-12 col-md-6">
+                                                <div class="col-12 col-md-12">
                                                     <div class="form-group">
                                                         <label class="input-label">{{ trans('public.duration') }} ({{ trans('public.minutes') }})</label>
                                                         <div class="input-group">
@@ -326,7 +327,7 @@
                                                     }
                                                 @endphp
 
-                                                <div class="form-group">
+                                                <div class="form-group" hiden>
                                                     <label class="input-label">{{ trans('update.timezone') }}</label>
                                                     <select name="timezone" class="form-control select2" data-allow-clear="false">
                                                         @foreach(getListOfTimezones() as $timezone)
@@ -341,7 +342,7 @@
                                                 </div>
                                             @endif
 
-                                            @if(!empty($webinar) and $webinar->creator->isOrganization())
+                                            @if(!empty($webinar) and isset($webinar->creator))
                                                 <div class="form-group mt-30 d-flex align-items-center justify-content-between">
                                                     <label class="" for="privateSwitch">{{ trans('webinars.private') }}</label>
                                                     <div class="custom-control custom-switch">
@@ -367,7 +368,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group mt-30 d-flex align-items-center justify-content-between">
+                                            <div class="form-group mt-30 align-items-center justify-content-between" hidden>
                                                 <label class="cursor-pointer" for="downloadableSwitch">{{ trans('home.downloadable') }}</label>
                                                 <div class="custom-control custom-switch">
                                                     <input type="checkbox" name="downloadable" class="custom-control-input" id="downloadableSwitch" {{ !empty($webinar) && $webinar->downloadable ? 'checked' : '' }}>
@@ -375,7 +376,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group mt-30 d-flex align-items-center justify-content-between">
+                                            <div class="form-group mt-30 align-items-center justify-content-between" hidden>
                                                 <label class="" for="partnerInstructorSwitch">{{ trans('public.partner_instructor') }}</label>
                                                 <div class="custom-control custom-switch">
                                                     <input type="checkbox" name="partner_instructor" class="custom-control-input" id="partnerInstructorSwitch" {{ !empty($webinar) && $webinar->partner_instructor ? 'checked' : ''  }}>
@@ -383,7 +384,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group mt-30 d-flex align-items-center justify-content-between">
+                                            <div class="form-group mt-30 align-items-center justify-content-between" hidden>
                                                 <label class="" for="forumSwitch">{{ trans('update.course_forum') }}</label>
                                                 <div class="custom-control custom-switch">
                                                     <input type="checkbox" name="forum" class="custom-control-input" id="forumSwitch" {{ !empty($webinar) && $webinar->forum ? 'checked' : ''  }}>
@@ -391,7 +392,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group mt-30 d-flex align-items-center justify-content-between">
+                                            <div class="form-group mt-30 align-items-center justify-content-between" hidden>
                                                 <label class="" for="subscribeSwitch">{{ trans('public.subscribe') }}</label>
                                                 <div class="custom-control custom-switch">
                                                     <input type="checkbox" name="subscribe" class="custom-control-input" id="subscribeSwitch" {{ !empty($webinar) && $webinar->subscribe ? 'checked' : ''  }}>
@@ -399,7 +400,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group mt-15">
+                                            <div class="form-group mt-15" hidden>
                                                 <label class="input-label">{{ trans('update.access_days') }}</label>
                                                 <input type="text" name="access_days" value="{{ !empty($webinar) ? $webinar->access_days : old('access_days') }}" class="form-control @error('access_days')  is-invalid @enderror"/>
                                                 @error('access_days')
@@ -410,7 +411,7 @@
                                                 <p class="mt-1">- {{ trans('update.access_days_input_hint') }}</p>
                                             </div>
 
-                                            <div class="form-group mt-15">
+                                            <div class="form-group mt-15" hidden>
                                                 <label class="input-label">{{ trans('public.price') }}</label>
                                                 <input type="text" name="price" value="{{ !empty($webinar) ? $webinar->price : old('price') }}" class="form-control @error('price')  is-invalid @enderror" placeholder="{{ trans('public.0_for_free') }}"/>
                                                 @error('price')
@@ -420,8 +421,8 @@
                                                 @enderror
                                             </div>
 
-                                            @if(!empty($webinar) and $webinar->creator->isOrganization())
-                                                <div class="form-group mt-15">
+                                            @if(!empty($webinar) and isset($webinar->creator) )
+                                                <div class="form-group mt-15" hidden>
                                                     <label class="input-label">{{ trans('update.organization_price') }}</label>
                                                     <input type="number" name="organization_price" value="{{ $webinar->organization_price ?? old('organization_price') }}" class="form-control @error('organization_price')  is-invalid @enderror" placeholder=""/>
                                                     @error('organization_price')
@@ -433,7 +434,7 @@
                                                 </div>
                                             @endif
 
-                                            <div id="partnerInstructorInput" class="form-group mt-15 {{ (!empty($webinar) && $webinar->partner_instructor) ? '' : 'd-none' }}">
+                                            <div id="partnerInstructorInput" class="form-group mt-15 {{ (!empty($webinar) && $webinar->partner_instructor) ? '' : 'd-none' }}" hidden >
                                                 <label class="input-label d-block">{{ trans('public.select_a_partner_teacher') }}</label>
 
                                                 <select name="partners[]" multiple data-search-option="just_teacher_role" class="js-search-partner-user form-control {{ (!empty($webinar) && $webinar->partner_instructor) ? 'search-user-select22' : '' }}"
@@ -487,7 +488,87 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group mt-15 {{ (!empty($webinarCategoryFilters) and count($webinarCategoryFilters)) ? '' : 'd-none' }}" id="categoriesFiltersContainer">
+                                    <div class="col-6" style="padding-left:0px;">
+
+
+                                        
+                                    </select>
+                                    @php
+                                        $storage = "";
+                                        $file_name = "";
+                                        $file_type = "";
+                                        $file_id = "";
+                                        if (!empty($webinar)){
+                                            $file = \App\Models\FIle::where("webinar_id", $webinar->id)->first();
+                                            if (isset($file->id)){
+                                                $storage = $file->storage;
+                                                $file_name = $file->file;
+                                                $file_type = $file->file_type;
+                                                $file_id = $file->id;
+                                            }
+                                        }
+
+                                    @endphp
+                                        <div class="form-group">
+                                            <label class="input-label">{{ trans('public.source') }}</label>
+                                            <select name="storage"
+                                                    class="js-file-storage form-control">
+                                                @foreach(\App\Models\File::$fileSources as $source)
+                                                    
+                                                    <option value="{{ $source }}" @if(!empty($file) and $storage == $source) selected @endif>{{ trans('update.file_source_'.$source) }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" style="padding-left:0px;">
+                                        <div class="form-group js-file-path-input {{ (!empty($storage) and $storage == 's3') ? 'd-none' : '' }}">
+                                            <div class="local-input input-group">
+                                                <div class="input-group-prepend">
+                                                    <button type="button" class="input-group-text admin-file-manager " data-input="file_path{{ !empty($file_id) ? $file_id : 'record' }}" data-preview="holder">
+                                                        <i data-feather="upload" width="18" height="18" class=""></i>
+                                                    </button>
+                                                </div>
+                                                <input type="text" name="file_path" id="file_path{{ !empty($file_id) ? $file_id : 'record' }}" value="{{ (!empty($file_name)) ? $file_name : '' }}" class="js-ajax-file_path form-control" placeholder="{{ trans('webinars.file_upload_placeholder') }}"/>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group js-s3-file-path-input {{ (!empty($storage) and $storage == 's3') ? '' : 'd-none' }}">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <button type="button" class="input-group-text text-white">
+                                                        <i data-feather="upload" width="18" height="18" class="text-white"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="custom-file">
+                                                    <input type="file" name="s3_file" class="js-s3-file-input custom-file-input cursor-pointer" id="s3File{{ !empty($file_id) ? $file_id : 'record' }}">
+                                                    <label class="custom-file-label cursor-pointer" for="s3File{{ !empty($file_id) ? $file_id : 'record' }}">{{ trans('update.choose_file') }}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group js-file-type-volume d-none">
+                                        <div class="col-6">
+                                            <label class="input-label">{{ trans('webinars.file_type') }}</label>
+                                            <select name="file_type" class="js-ajax-file_type form-control">
+                                                <option value="">{{ trans('webinars.select_file_type') }}</option>
+                            
+                                                @foreach(\App\Models\File::$fileTypes as $fileType)
+                                                    <option value="{{ $fileType }}">{{ trans('update.file_type_'.$fileType) }}</option>
+                                                @endforeach
+                                            </select>
+                                            <div class="invalid-feedback"></div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="input-label">{{ trans('webinars.file_volume') }}</label>
+                                            <input type="text" name="volume" value="" class="js-ajax-volume form-control" placeholder="{{ trans('webinars.online_file_volume') }}"/>
+                                            <div class="invalid-feedback"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mt-15 {{ (!empty($webinarCategoryFilters) and count($webinarCategoryFilters)) ? '' : 'd-none' }}" id="categoriesFiltersContainer" hidden >
                                         <span class="input-label d-block">{{ trans('public.category_filters') }}</span>
                                         <div id="categoriesFiltersCard" class="row mt-3">
 
@@ -517,7 +598,7 @@
                                 </section>
 
                                 @if(!empty($webinar))
-                                    <section class="mt-30">
+                                    <section class="mt-30" hidden>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h2 class="section-title after-line">{{ trans('admin/main.price_plans') }}</h2>
                                             <button id="webinarAddTicket" type="button" class="btn btn-primary btn-sm mt-3">{{ trans('admin/main.add_price_plan') }}</button>
@@ -567,11 +648,7 @@
                                         </div>
                                     </section>
 
-
-                                    @include('admin.webinars.create_includes.contents')
-
-
-                                    <section class="mt-30">
+                                    <section class="mt-30" hidden>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h2 class="section-title after-line">{{ trans('public.prerequisites') }}</h2>
                                             <button id="webinarAddPrerequisites" type="button" class="btn btn-primary btn-sm mt-3">{{ trans('public.add_prerequisites') }}</button>
@@ -675,7 +752,7 @@
                                     </section>
 
                                     @foreach(\App\Models\WebinarExtraDescription::$types as $webinarExtraDescriptionType)
-                                        <section class="mt-30">
+                                        <section class="mt-30" hidden>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <h2 class="section-title after-line">{{ trans('update.'.$webinarExtraDescriptionType) }}</h2>
                                                 <button id="add_new_{{ $webinarExtraDescriptionType }}" type="button" class="btn btn-primary btn-sm mt-3">{{ trans('update.add_'.$webinarExtraDescriptionType) }}</button>
@@ -785,7 +862,7 @@
                                     </section>
                                 @endif
 
-                                <section class="mt-3">
+                                <section class="mt-3"  hidden>
                                     <h2 class="section-title after-line">{{ trans('public.message_to_reviewer') }}</h2>
                                     <div class="row">
                                         <div class="col-12">

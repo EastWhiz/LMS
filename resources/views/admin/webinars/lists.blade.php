@@ -241,10 +241,10 @@
                                     <tr>
                                         <th>{{trans('admin/main.id')}}</th>
                                         <th class="text-left">{{trans('admin/main.title')}}</th>
-                                        <th class="text-left">{{trans('admin/main.instructor')}}</th>
-                                        <th>{{trans('admin/main.price')}}</th>
+                                        
+                                        {{-- <th>{{trans('admin/main.price')}}</th>
                                         <th>{{trans('admin/main.sales')}}</th>
-                                        <th>{{trans('admin/main.income')}}</th>
+                                        <th>{{trans('admin/main.income')}}</th> --}}
                                         <th>{{trans('admin/main.students_count')}}</th>
                                         <th>{{trans('admin/main.created_at')}}</th>
                                         @if($classesType == 'webinar')
@@ -268,9 +268,9 @@
                                                 @endif
                                             </td>
 
-                                            <td class="text-left">{{ $webinar->teacher->full_name }}</td>
+                                            
 
-                                            <td>
+                                            {{-- <td>
                                                 @if(!empty($webinar->price) and $webinar->price > 0)
                                                     <span class="mt-0 mb-1">
                                                         {{ handlePrice($webinar->price, true, true) }}
@@ -282,8 +282,8 @@
                                                 @else
                                                     {{ trans('public.free') }}
                                                 @endif
-                                            </td>
-                                            <td>
+                                            </td> --}}
+                                            {{-- <td>
                                                 <span class="text-primary mt-0 mb-1 font-weight-bold">
                                                     {{ $webinar->sales->count() }}
                                                 </span>
@@ -291,9 +291,9 @@
                                                 @if($classesType == 'webinar')
                                                     <div class="text-small font-600-bold">{{trans('admin/main.capacity')}} : {{ $webinar->getWebinarCapacity() }}</div>
                                                 @endif
-                                            </td>
+                                            </td> --}}
 
-                                            <td>{{ addCurrencyToPrice($webinar->sales->sum('total_amount')) }}</td>
+                                            {{-- <td>{{ addCurrencyToPrice($webinar->sales->sum('total_amount')) }}</td> --}}
 
                                             <td class="font-12">
                                                 <a href="/admin/webinars/{{ $webinar->id }}/students" target="_blank" class="">{{ $webinar->sales->count() }}</a>
@@ -338,12 +338,12 @@
                                                         <i class="fa fa-ellipsis-v"></i>
                                                     </button>
                                                     <div class="dropdown-menu text-left webinars-lists-dropdown">
-                                                        @can('admin_webinar_notification_to_students')
+                                                        {{-- @can('admin_webinar_notification_to_students')
                                                             <a href="/admin/webinars/{{ $webinar->id }}/sendNotification" target="_blank" class="d-flex align-items-center text-dark text-decoration-none btn-transparent btn-sm text-primary mt-1 ">
                                                                 <i class="fa fa-bell"></i>
                                                                 <span class="ml-2">{{ trans('notification.send_notification') }}</span>
                                                             </a>
-                                                        @endcan
+                                                        @endcan --}}
 
                                                         @can('admin_webinar_students_lists')
                                                             <a href="/admin/webinars/{{ $webinar->id }}/students" target="_blank" class="d-flex align-items-center text-dark text-decoration-none btn-transparent btn-sm text-primary mt-1 " title="{{ trans('admin/main.students') }}">
@@ -359,12 +359,12 @@
                                                             </a>
                                                         @endcan
 
-                                                        @can('admin_support_send')
+                                                        {{-- @can('admin_support_send')
                                                             <a href="/admin/supports/create?user_id={{ $webinar->teacher->id }}" target="_blank" class="d-flex align-items-center text-dark text-decoration-none btn-transparent btn-sm text-primary mt-1" title="{{ trans('admin/main.send_message_to_teacher') }}">
                                                                 <i class="fa fa-comment"></i>
                                                                 <span class="ml-2">{{ trans('site.send_message') }}</span>
                                                             </a>
-                                                        @endcan
+                                                        @endcan --}}
 
                                                         @can('admin_webinars_edit')
                                                             <a href="/admin/webinars/{{ $webinar->id }}/edit" target="_blank" class="d-flex align-items-center text-dark text-decoration-none btn-transparent btn-sm text-primary mt-1 " title="{{ trans('admin/main.edit') }}">

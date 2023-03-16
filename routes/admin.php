@@ -37,6 +37,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
             Route::get('/{id}/delete', 'RoleController@destroy');
         });
 
+        //Orgnization
+        Route::group(["prefix" => "orgnization"], function(){
+            Route::get("/", "OrgnizationController@index")->name("org.index");
+            Route::get("/add", "OrgnizationController@Add")->name("org.add");
+            Route::get("/update{id}", "OrgnizationController@Update")->name("org.update");
+            Route::get("/delete/{id}", "OrgnizationController@Delete")->name("org.delete");
+        });
+
         Route::group(['prefix' => 'staffs'], function () {
             Route::get('/', 'UserController@staffs');
         });
@@ -56,6 +64,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
             Route::get('/excel', 'UserController@exportExcelOrganizations');
         });
 
+        
         Route::group(['prefix' => 'users'], function () {
             Route::get('/create', 'UserController@create');
             Route::post('/store', 'UserController@store');
@@ -235,7 +244,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
                 Route::get('/{id}/delete', 'ForumTopicReportsController@delete');
             });
         });
-
+ 
         Route::group(['prefix' => 'webinars'], function () {
             Route::get('/', 'WebinarController@index');
             Route::get('/create', 'WebinarController@create');

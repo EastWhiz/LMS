@@ -10,32 +10,32 @@
             'icon' => 'paper_plus'
         ],
 
-        3 => [
-            'name' => 'pricing',
-            'icon' => 'wallet'
-        ],
+        // 3 => [
+        //     'name' => 'pricing',
+        //     'icon' => 'wallet'
+        // ],
 
-        4 => [
+        3 => [
             'name' => 'content',
             'icon' => 'folder'
         ],
 
-        5 => [
+        4 => [
             'name' => 'prerequisites',
             'icon' => 'video'
         ],
 
-        6 => [
+        5 => [
             'name' => 'faq',
             'icon' => 'tick_square'
         ],
 
-        7 => [
+        6 => [
             'name' => 'quiz_certificate',
             'icon' => 'ticket_star'
         ],
 
-        8 => [
+        7 => [
             'name' => 'message_to_reviewer',
             'icon' => 'shield_done'
         ],
@@ -54,7 +54,7 @@
             </button>
 
             <div class="ml-10 {{ $key == $currentStep ? '' : 'd-lg-none' }}">
-                <span class="font-14 text-gray">{{ trans('webinars.progress_step', ['step' => $key,'count' => 8]) }}</span>
+                <span class="font-14 text-gray">{{ trans('webinars.progress_step', ['step' => $key,'count' => count($progressSteps) ]) }}</span>
                 <h4 class="font-16 text-secondary font-weight-bold">{{ trans('public.' . $step['name']) }}</h4>
             </div>
         </div>

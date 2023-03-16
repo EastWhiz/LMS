@@ -48,6 +48,7 @@ class WebinarController extends Controller
         $type = $request->get('type', 'webinar');
         $query = Webinar::where('webinars.type', $type);
 
+
         $totalWebinars = $query->count();
         $totalPendingWebinars = deepClone($query)->where('webinars.status', 'pending')->count();
         $totalDurations = deepClone($query)->sum('duration');
@@ -76,7 +77,7 @@ class WebinarController extends Controller
                     $query->whereNull('refund_at');
                 }
             ]);
-
+       
         $webinars = $query->paginate(10);
 
         if ($request->get('status', null) == 'active_finished') {
@@ -118,12 +119,12 @@ class WebinarController extends Controller
         $sort = $request->get('sort', null);
 
         $query = fromAndToDateFilter($from, $to, $query, 'created_at');
-
         if (!empty($title)) {
             $query->whereTranslationLike('title', '%' . $title . '%');
         }
 
         if (!empty($teacher_ids) and count($teacher_ids)) {
+            
             $query->whereIn('teacher_id', $teacher_ids);
         }
 
@@ -134,118 +135,118 @@ class WebinarController extends Controller
         if (!empty($status)) {
             $time = time();
 
-            switch ($status) {
-                case 'active_not_conducted':
-                    $query->where('webinars.status', 'active')
-                        ->where('start_date', '>', $time);
-                    break;
-                case 'active_in_progress':
-                    $query->where('webinars.status', 'active')
-                        ->where('start_date', '<=', $time)
-                        ->join('sessions', 'webinars.id', '=', 'sessions.webinar_id')
-                        ->select('webinars.*', 'sessions.date', DB::raw('max(`date`) as last_date'))
-                        ->groupBy('sessions.webinar_id')
-                        ->where('sessions.date', '>', $time);
-                    break;
-                case 'active_finished':
-                    $query->where('webinars.status', 'active')
-                        ->where('start_date', '<=', $time)
-                        ->join('sessions', 'webinars.id', '=', 'sessions.webinar_id')
-                        ->select('webinars.*', 'sessions.date', DB::raw('max(`date`) as last_date'))
-                        ->groupBy('sessions.webinar_id');
-                    break;
-                default:
-                    $query->where('webinars.status', $status);
-                    break;
-            }
+            // switch ($status) {
+            //     case 'active_not_conducted':
+            //         $query->where('webinars.status', 'active')
+            //             ->where('start_date', '>', $time);
+            //         break;
+            //     case 'active_in_progress':
+            //         $query->where('webinars.status', 'active')
+            //             ->where('start_date', '<=', $time)
+            //             ->join('sessions', 'webinars.id', '=', 'sessions.webinar_id')
+            //             ->select('webinars.*', 'sessions.date', DB::raw('max(`date`) as last_date'))
+            //             ->groupBy('sessions.webinar_id')
+            //             ->where('sessions.date', '>', $time);
+            //         break;
+            //     case 'active_finished':
+            //         $query->where('webinars.status', 'active')
+            //             ->where('start_date', '<=', $time)
+            //             ->join('sessions', 'webinars.id', '=', 'sessions.webinar_id')
+            //             ->select('webinars.*', 'sessions.date', DB::raw('max(`date`) as last_date'))
+            //             ->groupBy('sessions.webinar_id');
+            //         break;
+            //     default:
+            //         $query->where('webinars.status', $status);
+            //         break;
+            // }
         }
 
         if (!empty($sort)) {
-            switch ($sort) {
-                case 'has_discount':
-                    $now = time();
-                    $webinarIdsHasDiscount = [];
+            // switch ($sort) {
+            //     case 'has_discount':
+            //         $now = time();
+            //         $webinarIdsHasDiscount = [];
 
-                    $tickets = Ticket::where('start_date', '<', $now)
-                        ->where('end_date', '>', $now)
-                        ->get();
+            //         $tickets = Ticket::where('start_date', '<', $now)
+            //             ->where('end_date', '>', $now)
+            //             ->get();
 
-                    foreach ($tickets as $ticket) {
-                        if ($ticket->isValid()) {
-                            $webinarIdsHasDiscount[] = $ticket->webinar_id;
-                        }
-                    }
+            //         foreach ($tickets as $ticket) {
+            //             if ($ticket->isValid()) {
+            //                 $webinarIdsHasDiscount[] = $ticket->webinar_id;
+            //             }
+            //         }
 
-                    $specialOffersWebinarIds = SpecialOffer::where('status', 'active')
-                        ->where('from_date', '<', $now)
-                        ->where('to_date', '>', $now)
-                        ->pluck('webinar_id')
-                        ->toArray();
+            //         $specialOffersWebinarIds = SpecialOffer::where('status', 'active')
+            //             ->where('from_date', '<', $now)
+            //             ->where('to_date', '>', $now)
+            //             ->pluck('webinar_id')
+            //             ->toArray();
 
-                    $webinarIdsHasDiscount = array_merge($specialOffersWebinarIds, $webinarIdsHasDiscount);
+            //         $webinarIdsHasDiscount = array_merge($specialOffersWebinarIds, $webinarIdsHasDiscount);
 
-                    $query->whereIn('id', $webinarIdsHasDiscount)
-                        ->orderBy('created_at', 'desc');
-                    break;
-                case 'sales_asc':
-                    $query->join('sales', 'webinars.id', '=', 'sales.webinar_id')
-                        ->select('webinars.*', 'sales.webinar_id', 'sales.refund_at', DB::raw('count(sales.webinar_id) as sales_count'))
-                        ->whereNotNull('sales.webinar_id')
-                        ->whereNull('sales.refund_at')
-                        ->groupBy('sales.webinar_id')
-                        ->orderBy('sales_count', 'asc');
-                    break;
-                case 'sales_desc':
-                    $query->join('sales', 'webinars.id', '=', 'sales.webinar_id')
-                        ->select('webinars.*', 'sales.webinar_id', 'sales.refund_at', DB::raw('count(sales.webinar_id) as sales_count'))
-                        ->whereNotNull('sales.webinar_id')
-                        ->whereNull('sales.refund_at')
-                        ->groupBy('sales.webinar_id')
-                        ->orderBy('sales_count', 'desc');
-                    break;
+            //         $query->whereIn('id', $webinarIdsHasDiscount)
+            //             ->orderBy('created_at', 'desc');
+            //         break;
+            //     case 'sales_asc':
+            //         $query->join('sales', 'webinars.id', '=', 'sales.webinar_id')
+            //             ->select('webinars.*', 'sales.webinar_id', 'sales.refund_at', DB::raw('count(sales.webinar_id) as sales_count'))
+            //             ->whereNotNull('sales.webinar_id')
+            //             ->whereNull('sales.refund_at')
+            //             ->groupBy('sales.webinar_id')
+            //             ->orderBy('sales_count', 'asc');
+            //         break;
+            //     case 'sales_desc':
+            //         $query->join('sales', 'webinars.id', '=', 'sales.webinar_id')
+            //             ->select('webinars.*', 'sales.webinar_id', 'sales.refund_at', DB::raw('count(sales.webinar_id) as sales_count'))
+            //             ->whereNotNull('sales.webinar_id')
+            //             ->whereNull('sales.refund_at')
+            //             ->groupBy('sales.webinar_id')
+            //             ->orderBy('sales_count', 'desc');
+            //         break;
 
-                case 'price_asc':
-                    $query->orderBy('price', 'asc');
-                    break;
+            //     case 'price_asc':
+            //         $query->orderBy('price', 'asc');
+            //         break;
 
-                case 'price_desc':
-                    $query->orderBy('price', 'desc');
-                    break;
+            //     case 'price_desc':
+            //         $query->orderBy('price', 'desc');
+            //         break;
 
-                case 'income_asc':
-                    $query->join('sales', 'webinars.id', '=', 'sales.webinar_id')
-                        ->select('webinars.*', 'sales.webinar_id', 'sales.total_amount', 'sales.refund_at', DB::raw('(sum(sales.total_amount) - (sum(sales.tax) + sum(sales.commission))) as amounts'))
-                        ->whereNotNull('sales.webinar_id')
-                        ->whereNull('sales.refund_at')
-                        ->groupBy('sales.webinar_id')
-                        ->orderBy('amounts', 'asc');
-                    break;
+            //     case 'income_asc':
+            //         $query->join('sales', 'webinars.id', '=', 'sales.webinar_id')
+            //             ->select('webinars.*', 'sales.webinar_id', 'sales.total_amount', 'sales.refund_at', DB::raw('(sum(sales.total_amount) - (sum(sales.tax) + sum(sales.commission))) as amounts'))
+            //             ->whereNotNull('sales.webinar_id')
+            //             ->whereNull('sales.refund_at')
+            //             ->groupBy('sales.webinar_id')
+            //             ->orderBy('amounts', 'asc');
+            //         break;
 
-                case 'income_desc':
-                    $query->join('sales', 'webinars.id', '=', 'sales.webinar_id')
-                        ->select('webinars.*', 'sales.webinar_id', 'sales.total_amount', 'sales.refund_at', DB::raw('(sum(sales.total_amount) - (sum(sales.tax) + sum(sales.commission))) as amounts'))
-                        ->whereNotNull('sales.webinar_id')
-                        ->whereNull('sales.refund_at')
-                        ->groupBy('sales.webinar_id')
-                        ->orderBy('amounts', 'desc');
-                    break;
+            //     case 'income_desc':
+            //         $query->join('sales', 'webinars.id', '=', 'sales.webinar_id')
+            //             ->select('webinars.*', 'sales.webinar_id', 'sales.total_amount', 'sales.refund_at', DB::raw('(sum(sales.total_amount) - (sum(sales.tax) + sum(sales.commission))) as amounts'))
+            //             ->whereNotNull('sales.webinar_id')
+            //             ->whereNull('sales.refund_at')
+            //             ->groupBy('sales.webinar_id')
+            //             ->orderBy('amounts', 'desc');
+            //         break;
 
-                case 'created_at_asc':
-                    $query->orderBy('created_at', 'asc');
-                    break;
+            //     case 'created_at_asc':
+            //         $query->orderBy('created_at', 'asc');
+            //         break;
 
-                case 'created_at_desc':
-                    $query->orderBy('created_at', 'desc');
-                    break;
+            //     case 'created_at_desc':
+            //         $query->orderBy('created_at', 'desc');
+            //         break;
 
-                case 'updated_at_asc':
-                    $query->orderBy('updated_at', 'asc');
-                    break;
+            //     case 'updated_at_asc':
+            //         $query->orderBy('updated_at', 'asc');
+            //         break;
 
-                case 'updated_at_desc':
-                    $query->orderBy('updated_at', 'desc');
-                    break;
-            }
+            //     case 'updated_at_desc':
+            //         $query->orderBy('updated_at', 'desc');
+            //         break;
+            // }
         } else {
             $query->orderBy('created_at', 'desc');
         }
@@ -290,22 +291,24 @@ class WebinarController extends Controller
         return view('admin.webinars.create', $data);
     }
 
+    // title,points, orgnization, seo meta description, thumbnail, cover image, description, duration, tags,source,
+
     public function store(Request $request)
     {
         $this->authorize('admin_webinars_create');
 
         $this->validate($request, [
-            'type' => 'required|in:webinar,course,text_lesson',
+            //'type' => 'required|in:webinar,course,text_lesson',
             'title' => 'required|max:255',
             'slug' => 'max:255|unique:webinars,slug',
             'thumbnail' => 'required',
             'image_cover' => 'required',
             'description' => 'required',
-            'teacher_id' => 'required|exists:users,id',
-            'category_id' => 'required',
-            'duration' => 'required|numeric',
-            'start_date' => 'required_if:type,webinar',
-            'capacity' => 'required_if:type,webinar',
+            //'teacher_id' => 'required|exists:users,id',
+            //'category_id' => 'required',
+            //'duration' => 'required|numeric',
+            //'start_date' => 'required_if:type,webinar',
+            //'capacity' => 'required_if:type,webinar',
         ]);
 
         $data = $request->all();
@@ -339,8 +342,8 @@ class WebinarController extends Controller
         $webinar = Webinar::create([
             'type' => $data['type'],
             'slug' => $data['slug'],
-            'teacher_id' => $data['teacher_id'],
-            'creator_id' => $data['teacher_id'],
+            'teacher_id' => 0,
+            'creator_id' => 0,
             'thumbnail' => $data['thumbnail'],
             'image_cover' => $data['image_cover'],
             'video_demo' => $data['video_demo'],
@@ -374,6 +377,9 @@ class WebinarController extends Controller
                 'description' => $data['description'],
                 'seo_description' => $data['seo_description'],
             ]);
+
+            $FileController = new FIleController;
+            $FileController->custom_store($request, $webinar->id, "new");
         }
 
         $filters = $request->get('filters', null);
@@ -503,21 +509,21 @@ class WebinarController extends Controller
         $publish = (!empty($data['draft']) and $data['draft'] == 'publish');
 
         $rules = [
-            'type' => 'required|in:webinar,course,text_lesson',
+            //'type' => 'required|in:webinar,course,text_lesson',
             'title' => 'required|max:255',
             'slug' => 'max:255|unique:webinars,slug,' . $webinar->id,
             'thumbnail' => 'required',
             'image_cover' => 'required',
             'description' => 'required',
-            'teacher_id' => 'required|exists:users,id',
-            'category_id' => 'required',
+            //'teacher_id' => 'required|exists:users,id',
+            //'category_id' => 'required',
         ];
 
-        if ($webinar->isWebinar()) {
-            $rules['start_date'] = 'required|date';
-            $rules['duration'] = 'required';
-            $rules['capacity'] = 'required|integer';
-        }
+        // if ($webinar->isWebinar()) {
+        //     $rules['start_date'] = 'required|date';
+        //     $rules['duration'] = 'required';
+        //     $rules['capacity'] = 'required|integer';
+        // }
 
         $this->validate($request, $rules);
 
@@ -625,8 +631,8 @@ class WebinarController extends Controller
 
         $webinar->update([
             'slug' => $data['slug'],
-            'creator_id' => !empty($data['organ_id']) ? $data['organ_id'] : $data['teacher_id'],
-            'teacher_id' => $data['teacher_id'],
+            'creator_id' => 0,
+            'teacher_id' => 0,
             'type' => $data['type'],
             'thumbnail' => $data['thumbnail'],
             'image_cover' => $data['image_cover'],
@@ -662,6 +668,8 @@ class WebinarController extends Controller
                 'description' => $data['description'],
                 'seo_description' => $data['seo_description'],
             ]);
+            $FileController = new FIleController;
+            $FileController->custom_store($request, $webinar->id, "edit");
         }
 
         if ($publish) {

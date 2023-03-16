@@ -90,7 +90,7 @@
             </div>
         @endif
 
-        <div class="form-group mt-30 d-flex align-items-center justify-content-between mb-5">
+        <div class="form-group mt-30 align-items-center justify-content-between mb-5 d-none">
             <label class="cursor-pointer input-label" for="forumSwitch">{{ trans('update.course_forum') }}</label>
             <div class="custom-control custom-switch">
                 <input type="checkbox" name="forum" class="custom-control-input" id="forumSwitch" {{ !empty($webinar) && $webinar->forum ? 'checked' : (old('forum') ? 'checked' : '')  }}>
@@ -98,7 +98,7 @@
             </div>
         </div>
 
-        <div>
+        <div class="d-none">
             <p class="font-12 text-gray">- {{ trans('update.panel_course_forum_hint') }}</p>
         </div>
 
@@ -130,7 +130,7 @@
             </div>
         </div>
 
-        <div class="form-group mt-30 d-flex align-items-center justify-content-between">
+        <div class="form-group mt-30 d-none align-items-center justify-content-between">
             <label class="cursor-pointer input-label" for="partnerInstructorSwitch">{{ trans('public.partner_instructor') }}</label>
             <div class="custom-control custom-switch">
                 <input type="checkbox" name="partner_instructor" class="custom-control-input" id="partnerInstructorSwitch" {{ ((!empty($webinar) && $webinar->partner_instructor) or old('partner_instructor') == 'on') ? 'checked' : ''  }}>
@@ -139,7 +139,7 @@
         </div>
 
 
-        <div id="partnerInstructorInput" class="form-group mt-15 {{ ((!empty($webinar) && $webinar->partner_instructor) or old('partner_instructor') == 'on') ? '' : 'd-none' }}">
+        <div id="partnerInstructorInput" class="form-group mt-15 d-none {{ ((!empty($webinar) && $webinar->partner_instructor) or old('partner_instructor') == 'on') ? '' : 'd-none' }}">
             <label class="input-label d-block">{{ trans('public.select_a_partner_teacher') }}</label>
 
             <select name="partners[]" class="form-control panel-search-user-select2 @error('partners')  is-invalid @enderror" multiple="" data-search-option="just_teachers" data-placeholder="{{ trans('public.search_instructor') }}">

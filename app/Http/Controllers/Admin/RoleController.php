@@ -103,11 +103,12 @@ class RoleController extends Controller
         ]);
 
         $data = $request->all();
-
-        $role->update([
+        $data = [
             'caption' => $data['caption'],
             'is_admin' => ((!empty($data['is_admin']) and $data['is_admin'] == 'on') or $role->name == Role::$admin),
-        ]);
+        ];
+        dd($data);
+        $role->update();
 
         Permission::where('role_id', '=', $role->id)->delete();
 

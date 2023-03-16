@@ -20,7 +20,7 @@ class Role extends Model
             case self::$admin:
             case self::$user:
             case self::$organization:
-            case self::$teacher:
+            // case self::$teacher:
                 return false;
                 break;
             default:

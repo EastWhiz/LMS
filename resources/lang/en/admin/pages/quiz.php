@@ -17,7 +17,7 @@ return [
     'quizzes_list' => 'Quizzes lists',
     'quiz_results' => 'Quizzes results',
     'question_count' => 'Question count',
-    'students_count' => 'Students count',
+    'students_count' => 'Employees count',
     'average_grade' => 'Average grade',
     'grades' => 'Grades',
     'grade_date' => 'Grades Date',

@@ -23,7 +23,7 @@
 
 
         @if($isOrganization)
-            <div class="form-group mt-15 ">
+            <div class="form-group mt-15 d-none">
                 <label class="input-label d-block">{{ trans('public.select_a_teacher') }}</label>
 
                 <select name="teacher_id" class="custom-select @error('teacher_id')  is-invalid @enderror">

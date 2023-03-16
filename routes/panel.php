@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::group(['namespace' => 'Panel', 'prefix' => 'panel', 'middleware' => ['check_mobile_app', 'impersonate', 'panel', 'share']], function () {
+Route::group(['namespace' => 'App\Http\Controllers\Panel', 'prefix' => 'panel', 'middleware' => ['check_mobile_app', 'impersonate', 'panel', 'share']], function () {
 
     Route::get('/', 'DashboardController@dashboard');
 
@@ -276,7 +276,7 @@ Route::group(['namespace' => 'Panel', 'prefix' => 'panel', 'middleware' => ['che
         Route::get('/{id}/saveStatus', 'NotificationsController@saveStatus');
     });
 
-    // organization instructor and students route
+    // organization instructor and students route 
     Route::group(['prefix' => 'manage'], function () {
         Route::get('/{user_type}', 'UserController@manageUsers');
         Route::get('/{user_type}/new', 'UserController@createUser');

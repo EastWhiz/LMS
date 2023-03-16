@@ -185,7 +185,7 @@ class LoginController extends Controller
 
         $cartManagerController = new CartManagerController();
         $cartManagerController->storeCookieCartsToDB();
-        $user = new User();
+        //$user = new User();
         if ($user->isAdmin()) {
             return redirect('/admin');
         } else {
