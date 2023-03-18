@@ -37,10 +37,10 @@
                             <span class="ml-10 mt-15 font-14">({{ $course->reviews->pluck('creator_id')->count() }} {{ trans('public.ratings') }})</span>
                         </div>
 
-                        <div class="mt-15">
+                        {{-- <div class="mt-15">
                             <span class="font-14">{{ trans('public.created_by') }}</span>
                             <a href="{{ $course->teacher->getProfileUrl() }}" target="_blank" class="text-decoration-underline text-white font-14 font-weight-500">{{ $course->teacher->full_name }}</a>
-                        </div>
+                        </div> --}}
 
                         @if($hasBought or $course->isWebinar())
                             @php
@@ -288,7 +288,7 @@
                     </div>
                 </div>
 
-                @if($course->teacher->offline)
+                {{-- @if($course->teacher->offline)
                     <div class="rounded-lg shadow-sm mt-35 d-flex">
                         <div class="offline-icon offline-icon-left d-flex align-items-stretch">
                             <div class="d-flex align-items-center">
@@ -301,7 +301,7 @@
                             <p class="font-14 font-weight-500 text-gray mt-15">{{ $course->teacher->offline_message }}</p>
                         </div>
                     </div>
-                @endif
+                @endif --}}
 
                 <div class="rounded-lg shadow-sm mt-35 px-25 py-20">
                     <h3 class="sidebar-title font-16 text-secondary font-weight-bold">{{ trans('webinars.'.$course->type) .' '. trans('webinars.specifications') }}</h3>
@@ -392,17 +392,17 @@
                 </div>
 
                 {{-- organization --}}
-                @if($course->creator_id != $course->teacher_id)
+                {{-- @if($course->creator_id != $course->teacher_id)
                     @include('web.default.course.sidebar_instructor_profile', ['courseTeacher' => $course->creator])
-                @endif
+                @endif --}}
                 {{-- teacher --}}
-                @include('web.default.course.sidebar_instructor_profile', ['courseTeacher' => $course->teacher])
+                {{-- @include('web.default.course.sidebar_instructor_profile', ['courseTeacher' => $course->teacher])
 
                 @if($course->webinarPartnerTeacher->count() > 0)
                     @foreach($course->webinarPartnerTeacher as $webinarPartnerTeacher)
                         @include('web.default.course.sidebar_instructor_profile', ['courseTeacher' => $webinarPartnerTeacher->teacher])
                     @endforeach
-                @endif
+                @endif --}}
                 {{-- ./ teacher --}}
 
                 {{-- tags --}}

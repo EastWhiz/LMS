@@ -91,12 +91,12 @@
                         </div>
                         <div class="col-12 col-lg-8">
                             <div class="row">
-                                <div class="col-12 col-lg-8">
+                                {{-- <div class="col-12 col-lg-8">
                                     <div class="form-group">
                                         <label class="input-label">{{ trans('public.instructor') }}</label>
                                         <input type="text" name="instructor" class="form-control" value="{{ request()->get('instructor','') }}"/>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label class="input-label">{{ trans('public.status') }}</label>
@@ -142,7 +142,7 @@
                             <table class="table custom-table">
                                 <thead>
                                 <tr>
-                                    <th>{{ trans('public.instructor') }}</th>
+                                    {{-- <th>{{ trans('public.instructor') }}</th> --}}
                                     <th>{{ trans('quiz.quiz') }}</th>
                                     <th class="text-center">{{ trans('quiz.quiz_grade') }}</th>
                                     <th class="text-center">{{ trans('quiz.my_grade') }}</th>
@@ -154,7 +154,7 @@
                                 <tbody>
                                 @foreach($quizzesResults as $result)
                                     <tr>
-                                        <td class="text-left">
+                                        {{-- <td class="text-left">
                                             <div class="user-inline-avatar d-flex align-items-center">
                                                 <div class="avatar bg-gray200">
                                                     <img src="{{ $result->quiz->creator->getAvatar() }}" class="img-cover" alt="">
@@ -164,7 +164,7 @@
                                                     <span class="mt-5 font-12 text-gray d-block">{{ $result->quiz->creator->email }}</span>
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td> --}}
                                         <td class="text-left">
                                             <span class="d-block">{{ $result->quiz->title }}</span>
                                             <span class="font-12 text-gray d-block">{{ $result->quiz->webinar->title }}</span>
@@ -174,9 +174,9 @@
                                         <td class="align-middle">{{ $result->user_grade }}</td>
 
                                         <td class="align-middle">
-                                        <span class="d-block text-{{ ($result->status == 'passed') ? 'primary' : ($result->status == 'waiting' ? 'warning' : 'danger') }}">
-                                            {{ trans('quiz.'.$result->status) }}
-                                        </span>
+                                            <span class="d-block text-{{ ($result->status == 'passed') ? 'primary' : ($result->status == 'waiting' ? 'warning' : 'danger') }}">
+                                                {{ trans('quiz.'.$result->status) }}
+                                            </span>
 
                                             @if($result->status =='failed' and $result->can_try)
                                                 <span class="d-block font-12 text-gray">{{ trans('quiz.quiz_chance_remained',['count' => $result->count_can_try]) }}</span>
@@ -200,8 +200,7 @@
                                                             <a href="/panel/quizzes/{{ $result->quiz->id }}/start" class="webinar-actions d-block mt-10">{{ trans('public.try_again') }}</a>
                                                         @endif
                                                     @endif
-
-                                                    <a href="{{ $result->quiz->webinar->getUrl() }}" class="webinar-actions d-block mt-10">{{ trans('webinars.webinar_page') }}</a>
+                                                    <a href="{{ url('panel/video/'.$result->quiz->webinar->slug)}}" class="webinar-actions d-block mt-10">Play Video</a>
                                                 </div>
                                             </div>
                                         </td>

@@ -17,7 +17,7 @@
                 <span class="badge badge-primary">{{ trans('webinars.'.$webinar->type) }}</span>
             @endif
 
-            <a href="{{ $webinar->getUrl() }}">
+            <a href="{{url("panel/video/$webinar->slug")}}" style="display:inline-block;">
                 <img src="{{ $webinar->getImage() }}" class="img-cover" alt="{{ $webinar->title }}">
             </a>
 
@@ -33,19 +33,19 @@
         </div>
 
         <figcaption class="webinar-card-body">
-            <div class="user-inline-avatar d-flex align-items-center">
+            {{-- <div class="user-inline-avatar d-flex align-items-center">
                 <div class="avatar bg-gray200">
                     <img src="{{ $webinar->teacher->getAvatar() }}" class="img-cover" alt="{{ $webinar->teacher->full_name }}">
                 </div>
                 <a href="{{ $webinar->teacher->getProfileUrl() }}" target="_blank" class="user-name ml-5 font-14">{{ $webinar->teacher->full_name }}</a>
-            </div>
+            </div> --}}
 
-            <a href="{{ $webinar->getUrl() }}">
-                <h3 class="mt-15 webinar-title font-weight-bold font-16 text-dark-blue">{{ clean($webinar->title,'title') }}</h3>
+            <a href="{{url("panel/video/$webinar->slug")}}">
+                <h3 class="mt-15 webinar-title font-weight-bold font-16 text-dark-blue">{{$webinar->title }}</h3>
             </a>
 
             @if(!empty($webinar->category))
-                <span class="d-block font-14 mt-10">{{ trans('public.in') }} <a href="{{ $webinar->category->getUrl() }}" target="_blank" class="text-decoration-underline">{{ $webinar->category->title }}</a></span>
+                <span class="d-block font-14 mt-10">{{ trans('public.in') }} <a href="#" target="_blank" class="text-decoration-underline">{{ $webinar->category->title }}</a></span>
             @endif
 
             @include(getTemplate() . '.includes.webinar.rate',['rate' => $webinar->getRate()])
@@ -64,7 +64,7 @@
                 </div>
             </div>
 
-            <div class="webinar-price-box mt-25">
+            {{-- <div class="webinar-price-box mt-25">
                 @if(!empty($isRewardCourses) and !empty($webinar->points))
                     <span class="text-warning real font-14">{{ $webinar->points }} {{ trans('update.points') }}</span>
                 @elseif(!empty($webinar->price) and $webinar->price > 0)
@@ -77,7 +77,7 @@
                 @else
                     <span class="real font-14">{{ trans('public.free') }}</span>
                 @endif
-            </div>
+            </div> --}}
         </figcaption>
     </figure>
 </div>

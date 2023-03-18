@@ -1,5 +1,5 @@
 <div class="webinar-card webinar-list webinar-list-2 d-flex mt-30">
-    <div class="image-box">
+    <div class="image-box" style="min-width: 45%;width: 45%;">
         @if($webinar->bestTicket() < $webinar->price)
             <span class="badge badge-danger">{{ trans('public.offer',['off' => $webinar->bestTicket(true)['percent']]) }}</span>
         @elseif(empty($isFeature) and !empty($webinar->feature))
@@ -47,12 +47,12 @@
             <span class="d-block font-14 mt-10">{{ trans('public.in') }} <a href="{{ $webinar->category->getUrl() }}" target="_blank" class="text-decoration-underline">{{ $webinar->category->title }}</a></span>
         @endif
 
-        <div class="user-inline-avatar d-flex align-items-center mt-10">
+        {{-- <div class="user-inline-avatar d-flex align-items-center mt-10">
             <div class="avatar bg-gray200">
                 <img src="{{ $webinar->teacher->getAvatar() }}" class="img-cover" alt="{{ $webinar->teacher->full_name }}">
             </div>
             <a href="{{ $webinar->teacher->getProfileUrl() }}" target="_blank" class="user-name ml-5 font-14">{{ $webinar->teacher->full_name }}</a>
-        </div>
+        </div> --}}
 
         @include(getTemplate() . '.includes.webinar.rate',['rate' => $webinar->getRate()])
 
@@ -71,7 +71,7 @@
                 </div>
             </div>
 
-            <div class="webinar-price-box d-flex flex-column justify-content-center align-items-center">
+            {{-- <div class="webinar-price-box d-flex flex-column justify-content-center align-items-center">
                 @if(!empty($webinar->price) and $webinar->price > 0)
                     @if($webinar->bestTicket() < $webinar->price)
                         <span class="off">{{ handlePrice($webinar->price) }}</span>
@@ -82,7 +82,7 @@
                 @else
                     <span class="real font-14">{{ trans('public.free') }}</span>
                 @endif
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

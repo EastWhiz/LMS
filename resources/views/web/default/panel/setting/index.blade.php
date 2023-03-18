@@ -33,15 +33,15 @@
                 @include('web.default.panel.setting.setting_includes.about')
                 @break
 
-                @case(4)
+                {{-- @case(4)
                 @include('web.default.panel.setting.setting_includes.education')
-                @break
+                @break --}}
 
-                @case(5)
+                @case(4)
                 @include('web.default.panel.setting.setting_includes.experiences')
                 @break
 
-                @case(6)
+                @case(5)
                 @include('web.default.panel.setting.setting_includes.occupations')
                 @break
 

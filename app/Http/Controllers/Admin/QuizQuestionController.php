@@ -67,10 +67,14 @@ class QuizQuestionController extends Controller
 
         if (!empty($quiz)) {
             $creator = $quiz->creator;
-
+            if (is_null($creator)){
+                $creator_id = 0;
+            }else{
+                $creator_id = $creator->id;
+            }
             $quizQuestion = QuizzesQuestion::create([
                 'quiz_id' => $data['quiz_id'],
-                'creator_id' => $creator->id,
+                'creator_id' => $creator_id,
                 'grade' => $data['grade'],
                 'type' => $data['type'],
                 'image' => $data['image'] ?? null,
@@ -96,7 +100,7 @@ class QuizQuestionController extends Controller
                     if (!empty($answer['title']) or !empty($answer['file'])) {
                         $questionAnswer = QuizzesQuestionsAnswer::create([
                             'question_id' => $quizQuestion->id,
-                            'creator_id' => $creator->id,
+                            'creator_id' => $creator_id,
                             'image' => $answer['file'] ?? null,
                             'correct' => isset($answer['correct']) ? true : false,
                             'created_at' => time()

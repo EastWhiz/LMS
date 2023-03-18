@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    <div class="d-flex sidebar-user-stats pb-10 ml-20 pb-lg-20 mt-15 mt-lg-30">
+    {{-- <div class="d-flex sidebar-user-stats pb-10 ml-20 pb-lg-20 mt-15 mt-lg-30">
         <div class="sidebar-user-stat-item d-flex flex-column">
             <strong class="text-center">{{ $authUser->webinars()->count() }}</strong>
             <span class="font-12">{{ trans('panel.classes') }}</span>
@@ -59,9 +59,9 @@
                 <span class="font-12">{{ trans('panel.followers') }}</span>
             </div>
         @endif
-    </div>
+    </div> --}}
 
-    <ul id="panel-sidebar-scroll" class="sidebar-menu pt-10 @if(!empty($authUser->userGroup)) has-user-group @endif @if(empty($getPanelSidebarSettings) or empty($getPanelSidebarSettings['background'])) without-bottom-image @endif" @if((!empty($isRtl) and $isRtl)) data-simplebar-direction="rtl" @endif>
+    <ul id="panel-sidebar-scroll" class="sidebar-menu pt-10 @if(!empty($authUser->userGroup)) has-user-group @endif @if(empty($getPanelSidebarSettings) or empty($getPanelSidebarSettings['background'])) without-bottom-image @endif" @if((!empty($isRtl) and $isRtl)) data-simplebar-direction="rtl" @endif style="height: calc(100% - 200px);"  >
 
         <li class="sidenav-item {{ (request()->is('panel')) ? 'sidenav-item-active' : '' }}">
             <a href="/panel" class="d-flex align-items-center">
@@ -121,9 +121,15 @@
                 </span>
                 <span class="font-14 text-dark-blue font-weight-500">{{ trans('panel.webinars') }}</span>
             </a>
-
             <div class="collapse {{ (request()->is('panel/webinars') or request()->is('panel/webinars/*')) ? 'show' : '' }}" id="webinarCollapse">
                 <ul class="sidenav-item-collapse">
+                    
+                    @if($authUser->isUser())
+                        <li class="mt-5 {{ (request()->is('panel/webinars/my-videos')) ? 'active' : '' }}">
+                            <a href="/panel/webinars/my-videos">My Videos</a>
+                        </li>
+                    @endif
+
                     @if($authUser->isOrganization() || $authUser->isTeacher())
                         <li class="mt-5 {{ (request()->is('panel/webinars/new')) ? 'active' : '' }}">
                             <a href="/panel/webinars/new">{{ trans('public.new') }}</a>
@@ -137,6 +143,7 @@
                             <a href="/panel/webinars/invitations">{{ trans('panel.invited_classes') }}</a>
                         </li> --}}
                     @endif
+
 
                     {{-- @if(!empty($authUser->organ_id))
                         <li class="mt-5 {{ (request()->is('panel/webinars/organization_classes')) ? 'active' : '' }}">
@@ -604,11 +611,11 @@
         </li>
     </ul>
 
-    @if(!empty($getPanelSidebarSettings) and !empty($getPanelSidebarSettings['background']))
+    {{-- @if(!empty($getPanelSidebarSettings) and !empty($getPanelSidebarSettings['background']))
         <div class="sidebar-create-class d-none d-md-block">
             <a href="{{ !empty($getPanelSidebarSettings['link']) ? $getPanelSidebarSettings['link'] : '' }}" class="sidebar-create-class-btn d-block text-right p-5">
                 <img src="{{ !empty($getPanelSidebarSettings['background']) ? $getPanelSidebarSettings['background'] : '' }}" alt="">
             </a>
         </div>
-    @endif
+    @endif --}}
 </div>

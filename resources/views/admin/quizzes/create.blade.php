@@ -51,6 +51,7 @@
                                                 @php
                                                     $webinars = \App\Models\Webinar::where("type", "video")->get();
                                                 @endphp
+                                                
                                                 <select name="webinar_id" class="form-control  @error('webinar_id') is-invalid @enderror" data-placeholder="{{ trans('admin/main.search_webinar') }}">
                                                     <option value="">Select Video</option>
                                                    @foreach ($webinars as $webinar)

@@ -61,7 +61,7 @@ return [
     'waiting' => 'Waiting',
     'filter_quizzes' => 'Filter Quizzes',
     'filter_results' => 'Filter Results',
-    'quiz_or_webinar' => 'Quiz / Course',
+    'quiz_or_webinar' => 'Quiz / Video',
     'show_only_active_quizzes' => 'Show only active quizzes',
     'show_only_open_results' => 'Show only open results',
 
@@ -108,13 +108,13 @@ return [
     'failed_students' => 'Failed employees',
     'filter_certificates' => 'Filter certificates',
     'generated_certificates' => 'Generated certificates',
-    'certificates_no_result' => 'No certificate for your courses!',
-    'certificates_no_result_hint' => 'By creating quizzes that include certificates, your courses will be more valuable.',
+    'certificates_no_result' => 'No certificate for your videos!',
+    'certificates_no_result_hint' => 'By creating quizzes that include certificates, your videos will be more valuable.',
 
     'my_certificates' => 'My certificates',
     'my_certificates_statistics' => 'My certificates statistics',
     'my_certificates_no_result' => 'You have no certificate!',
-    'my_certificates_no_result_hint' => 'You can achieve valid certificates by enrolling on courses.',
+    'my_certificates_no_result_hint' => 'You can achieve valid certificates by enrolling on videos.',
 
     'quiz_chance_remained' => ':count chance remained',
     'student_answer' => 'Employee answer',

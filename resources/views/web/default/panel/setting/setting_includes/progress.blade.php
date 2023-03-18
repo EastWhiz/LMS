@@ -15,17 +15,17 @@
             'icon' => 'about'
         ],
 
-        4 => [
-            'lang' => 'public.educations',
-            'icon' => 'graduate'
-        ],
+        // 4 => [
+        //     'lang' => 'public.educations',
+        //     'icon' => 'graduate'
+        // ],
 
-        5 => [
+        4 => [
             'lang' => 'public.experiences',
             'icon' => 'experiences'
         ],
 
-        6 => [
+        5 => [
             'lang' => 'public.occupations',
             'icon' => 'skills'
         ],
@@ -42,7 +42,7 @@
         //     'icon' => 'zoom'
         // ];
 
-        $progressSteps[7] =[
+        $progressSteps[6] =[
             'lang' => 'public.extra_information',
             'icon' => 'extra_info'
         ];

@@ -1295,4 +1295,48 @@ class WebinarController extends Controller
 
         abort(403);
     }
+
+    function myVideos(){
+        $user = auth()->user();
+        $organ_id = $user->organ_id;
+
+        if (!$user->isUser()) {
+            abort(404);
+        }
+
+        $creaters = [0, $organ_id];
+
+        $w = Webinar::whereIn("creator_id", $creaters)->where("status", "active")->get();
+
+        $data["videos"] = $w;
+        $data['pageTitle'] = "My Videos";
+
+        return view(getTemplate() . '.panel.webinar.videos', $data);
+    }
+
+    function playVideo(Request $request, $slug){
+        $user = auth()->user();
+        $organ_id = $user->organ_id;
+
+        if (!$user->isUser()) {
+            abort(404);
+        }
+
+        $w = Webinar::where("slug", $slug)->where("status", "active")->first();
+        if (!isset($w->id)){
+            abort(404);
+        }
+        $file = File::where("webinar_id", $w->id)->first();
+        $quiz = Quiz::where("webinar_id", $w->id)->first();
+        $quiz_url = "";
+        if (isset($quiz->id)){
+            $quiz_url = url('panel/quizzes/'.$quiz->id.'/start');
+        }
+        $data["video"] = $w;
+        $data['pageTitle'] = $w->title;
+        $data["source"] = $file; 
+        $data["quiz"] = $quiz_url;
+
+        return view(getTemplate() . '.panel.webinar.play-video', $data);
+    }
 }

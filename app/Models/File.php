@@ -58,6 +58,10 @@ class File extends Model implements TranslatableContract
 
     public function isVideo()
     {
+        if (is_null($this->file_type)){
+            $exp = explode(".", $this->file);
+            $this->file_type = end($exp);
+        }
         return (in_array($this->file_type, self::$videoTypes));
     }
 

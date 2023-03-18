@@ -1,5 +1,5 @@
 <div class="">
-    <div data-action="{{ !empty($quiz) ? '/panel/quizzes/'. $quiz->id .'/update' : '/panel/quizzes/store' }}" class="quiz-form webinar-form">
+    <div data-action="{{ !empty($quiz) ? '/admin/quizzes/'. $quiz->id .'/update' : '/panel/quizzes/store' }}" class="quiz-form webinar-form">
 
         <section>
             <h2 class="section-title after-line">{{ trans('quiz.new_quiz') }}</h2>
@@ -131,6 +131,6 @@
 
 <!-- Modal -->
 @if(!empty($quiz))
-    @include(getTemplate() .'.panel.quizzes.modals.multiple_question',['quiz' => $quiz])
-    @include(getTemplate() .'.panel.quizzes.modals.descriptive_question',['quiz' => $quiz])
+    @include('admin.quizzes.modals.multiple_question',['quiz' => $quiz])
+    @include('admin.quizzes.modals.descriptive_question',['quiz' => $quiz])
 @endif

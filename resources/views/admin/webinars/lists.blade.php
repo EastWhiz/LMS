@@ -7,13 +7,13 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>{{ trans('admin/main.type_'.$classesType.'s') }} {{trans('admin/main.list')}}</h1>
+            <h1>Videos {{trans('admin/main.list')}}</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="/admin/">{{trans('admin/main.dashboard')}}</a>
                 </div>
                 <div class="breadcrumb-item">{{trans('admin/main.classes')}}</div>
 
-                <div class="breadcrumb-item">{{ trans('admin/main.type_'.$classesType.'s') }}</div>
+                <div class="breadcrumb-item">List</div>
             </div>
         </div>
 
@@ -27,7 +27,7 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>{{trans('admin/main.total')}} {{ trans('admin/main.type_'.$classesType.'s') }}</h4>
+                                <h4>{{trans('admin/main.total')}} Videos</h4>
                             </div>
                             <div class="card-body">
                                 {{ $totalWebinars }}
@@ -43,7 +43,7 @@
 
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>{{trans('admin/main.pending_review')}} {{ trans('admin/main.type_'.$classesType.'s') }}</h4>
+                                <h4>{{trans('admin/main.pending_review')}} Videos</h4>
                             </div>
                             <div class="card-body">
                                 {{ $totalPendingWebinars }}
@@ -80,7 +80,7 @@
                                 <div class="card-header">
                                     <h4>{{trans('admin/main.total_durations')}}</h4>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body" style="font-size:14px;">
                                     {{ convertMinutesToHourAndMinute($totalDurations) }} {{ trans('home.hours') }}
                                 </div>
                             </div>
@@ -139,13 +139,13 @@
                                     <label class="input-label">{{trans('admin/main.filters')}}</label>
                                     <select name="sort" data-plugin-selectTwo class="form-control populate">
                                         <option value="">{{trans('admin/main.filter_type')}}</option>
-                                        <option value="has_discount" @if(request()->get('sort') == 'has_discount') selected @endif>{{trans('admin/main.discounted_classes')}}</option>
-                                        <option value="sales_asc" @if(request()->get('sort') == 'sales_asc') selected @endif>{{trans('admin/main.sales_ascending')}}</option>
-                                        <option value="sales_desc" @if(request()->get('sort') == 'sales_desc') selected @endif>{{trans('admin/main.sales_descending')}}</option>
-                                        <option value="price_asc" @if(request()->get('sort') == 'price_asc') selected @endif>{{trans('admin/main.Price_ascending')}}</option>
-                                        <option value="price_desc" @if(request()->get('sort') == 'price_desc') selected @endif>{{trans('admin/main.Price_descending')}}</option>
-                                        <option value="income_asc" @if(request()->get('sort') == 'income_asc') selected @endif>{{trans('admin/main.Income_ascending')}}</option>
-                                        <option value="income_desc" @if(request()->get('sort') == 'income_desc') selected @endif>{{trans('admin/main.Income_descending')}}</option>
+                                        {{-- <option value="has_discount" @if(request()->get('sort') == 'has_discount') selected @endif>{{trans('admin/main.discounted_classes')}}</option> --}}
+                                        {{-- <option value="sales_asc" @if(request()->get('sort') == 'sales_asc') selected @endif>{{trans('admin/main.sales_ascending')}}</option>
+                                        <option value="sales_desc" @if(request()->get('sort') == 'sales_desc') selected @endif>{{trans('admin/main.sales_descending')}}</option> --}}
+                                        {{-- <option value="price_asc" @if(request()->get('sort') == 'price_asc') selected @endif>{{trans('admin/main.Price_ascending')}}</option>
+                                        <option value="price_desc" @if(request()->get('sort') == 'price_desc') selected @endif>{{trans('admin/main.Price_descending')}}</option> --}}
+                                        {{-- <option value="income_asc" @if(request()->get('sort') == 'income_asc') selected @endif>{{trans('admin/main.Income_ascending')}}</option>
+                                        <option value="income_desc" @if(request()->get('sort') == 'income_desc') selected @endif>{{trans('admin/main.Income_descending')}}</option> --}}
                                         <option value="created_at_asc" @if(request()->get('sort') == 'created_at_asc') selected @endif>{{trans('admin/main.create_date_ascending')}}</option>
                                         <option value="created_at_desc" @if(request()->get('sort') == 'created_at_desc') selected @endif>{{trans('admin/main.create_date_descending')}}</option>
                                         <option value="updated_at_asc" @if(request()->get('sort') == 'updated_at_asc') selected @endif>{{trans('admin/main.update_date_ascending')}}</option>
@@ -155,7 +155,7 @@
                             </div>
 
 
-                            <div class="col-md-3">
+                            {{-- <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="input-label">{{trans('admin/main.instructor')}}</label>
                                     <select name="teacher_ids[]" multiple="multiple" data-search-option="just_teacher_role" class="form-control search-user-select2"
@@ -168,7 +168,7 @@
                                         @endif
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
 
 
                             <div class="col-md-3">
@@ -206,7 +206,7 @@
                                         @else
                                             <option value="active" @if(request()->get('status') == 'active') selected @endif>{{trans('admin/main.published')}}</option>
                                         @endif
-                                        <option value="inactive" @if(request()->get('status') == 'inactive') selected @endif>{{trans('admin/main.rejected')}}</option>
+                                        {{-- <option value="inactive" @if(request()->get('status') == 'inactive') selected @endif>{{trans('admin/main.rejected')}}</option> --}}
                                         <option value="is_draft" @if(request()->get('status') == 'is_draft') selected @endif>{{trans('admin/main.draft')}}</option>
                                     </select>
                                 </div>

@@ -59,12 +59,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Panel', 'prefix' => 'panel', 
         });
 
         Route::get('/my-comments', 'CommentController@myComments');
+        Route::get('/my-videos', 'WebinarController@myVideos');
 
         Route::group(['prefix' => 'favorites'], function () {
             Route::get('/', 'FavoriteController@index');
             Route::get('/{id}/delete', 'FavoriteController@destroy');
         });
     });
+
+    Route::get('/video/{slug}', 'WebinarController@playVideo');
 
     Route::group(['prefix' => 'quizzes'], function () {
         Route::group(['middleware' => 'user.not.access'], function () {

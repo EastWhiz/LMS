@@ -10,7 +10,7 @@
         <div class="d-flex align-items-start align-items-md-center justify-content-between flex-column flex-md-row">
             <h1 class="section-title">{{ trans('panel.dashboard') }}</h1>
 
-            @if(!$authUser->isUser())
+            {{-- @if(!$authUser->isUser())
                 <div class="d-flex align-items-center flex-row-reverse flex-md-row justify-content-start justify-content-md-center mt-20 mt-md-0">
                     <label class="mb-0 mr-10 cursor-pointer text-gray font-14 font-weight-500" for="iNotAvailable">{{ trans('panel.i_not_available') }}</label>
                     <div class="custom-control custom-switch">
@@ -18,7 +18,7 @@
                         <label class="custom-control-label" for="iNotAvailable"></label>
                     </div>
                 </div>
-            @endif
+            @endif --}}
         </div>
 
         {{-- @if(!$authUser->financial_approval and !$authUser->isUser())
@@ -28,10 +28,10 @@
             </div>
         @endif --}}
 
-        <div class="bg-white dashboard-banner-container position-relative px-15 px-ld-35 py-10 panel-shadow rounded-sm">
+        <div class="bg-white dashboard-banner-container position-relative px-15 px-ld-35 panel-shadow rounded-sm mt-20">
             <h2 class="font-30 text-primary line-height-1">
                 <span class="d-block">{{ trans('panel.hi') }} {{ $authUser->full_name }},</span>
-                <span class="font-16 text-secondary font-weight-bold">{{ trans('panel.have_event',['count' => !empty($unReadNotifications) ? count($unReadNotifications) : 0]) }}</span>
+                {{-- <span class="font-16 text-secondary font-weight-bold">{{ trans('panel.have_event',['count' => !empty($unReadNotifications) ? count($unReadNotifications) : 0]) }}</span> --}}
             </h2>
 
             <ul class="mt-15 unread-notification-lists">
@@ -55,7 +55,7 @@
     </section>
 
     <section class="dashboard">
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-12 col-lg-3 mt-35">
                 <div class="bg-white account-balance rounded-sm panel-shadow py-15 py-md-30 px-10 px-md-20">
                     <div class="text-center">
@@ -136,7 +136,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="row">
             <div class="col-12 col-lg-6 mt-35">

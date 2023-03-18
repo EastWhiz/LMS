@@ -123,7 +123,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        {{-- <div class="col-md-3">
                             <div class="form-group">
                                 <label class="input-label">{{ trans('admin/main.instructor') }}</label>
                                 <select name="teacher_ids[]" multiple="multiple" data-search-option="just_teacher_role" class="form-control search-user-select2"
@@ -136,7 +136,7 @@
                                     @endif
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="col-md-3">
                             <div class="form-group">
@@ -187,7 +187,7 @@
                                 <table class="table table-striped font-14">
                                     <tr>
                                         <th class="text-left">{{ trans('admin/main.title') }}</th>
-                                        <th class="text-left">{{ trans('admin/main.instructor') }}</th>
+                                        {{-- <th class="text-left">{{ trans('admin/main.instructor') }}</th> --}}
                                         <th class="text-center">{{ trans('admin/main.question_count') }}</th>
                                         <th class="text-center">{{ trans('admin/main.students_count') }}</th>
                                         <th class="text-center">{{ trans('admin/main.average_grade') }}</th>
@@ -205,7 +205,7 @@
                                                 @endif
                                             </td>
 
-                                            <td class="text-left">{{ $quiz->teacher->full_name }}</td>
+                                            {{-- <td class="text-left">{{ $quiz->teacher->full_name }}</td> --}}
 
                                             <td class="text-center">
                                                 {{ $quiz->quizQuestions->count() }}

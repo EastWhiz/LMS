@@ -11,9 +11,9 @@
             <p class="text-gray font-14 mt-5">
                 <a href="{{ $quiz->webinar->getUrl() }}" target="_blank" class="text-gray">{{ $quiz->webinar->title }}</a>
                 | {{ trans('public.by') }}
-                <span class="font-weight-bold">
+                {{-- <span class="font-weight-bold">
                     <a href="{{ $quiz->creator->getProfileUrl() }}" target="_blank" class="font-14"> {{ $quiz->creator->full_name }}</a>
-                </span>
+                </span> --}}
             </p>
 
             <div class="activities-container shadow-sm rounded-lg mt-25 p-20 p-lg-35">
