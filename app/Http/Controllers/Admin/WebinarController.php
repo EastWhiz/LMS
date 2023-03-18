@@ -305,7 +305,7 @@ class WebinarController extends Controller
             'image_cover' => 'required',
             'description' => 'required',
             //'teacher_id' => 'required|exists:users,id',
-            //'category_id' => 'required',
+            'category_id' => 'required',
             //'duration' => 'required|numeric',
             //'start_date' => 'required_if:type,webinar',
             //'capacity' => 'required_if:type,webinar',
