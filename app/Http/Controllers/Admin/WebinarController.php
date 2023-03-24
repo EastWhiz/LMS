@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Exports\WebinarsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Panel\WebinarStatisticController;
-use App\Http\Controllers\Admin\FileController;
 use App\Mail\SendNotifications;
 use App\Models\BundleWebinar;
 use App\Models\Category;
@@ -379,7 +378,7 @@ class WebinarController extends Controller
                 'seo_description' => $data['seo_description'],
             ]);
 
-            $FileController = new FIleController();
+            $FileController = new FIleController;
             $FileController->custom_store($request, $webinar->id, "new");
         }
 
@@ -669,7 +668,7 @@ class WebinarController extends Controller
                 'description' => $data['description'],
                 'seo_description' => $data['seo_description'],
             ]);
-            $FileController = new FIleController();
+            $FileController = new FIleController;
             $FileController->custom_store($request, $webinar->id, "edit");
         }
 
