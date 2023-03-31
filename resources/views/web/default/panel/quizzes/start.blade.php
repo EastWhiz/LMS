@@ -103,8 +103,11 @@
                                     </div>
                                 @else
                                     <div class="question-multi-answers mt-35">
+                                        <select name="question[{{ $question->id }}][answer]">
+                                            <option value="">Select Option</option>
                                         @foreach($question->quizzesQuestionsAnswers as $key => $answer)
-                                            <div class="answer-item">
+                                            <option value="{{ $answer->id }}">{{$answer->title}}</option>
+                                            {{-- <div class="answer-item">
                                                 <input id="asw-{{ $answer->id }}" type="radio" name="question[{{ $question->id }}][answer]" value="{{ $answer->id }}">
                                                 @if(!$answer->image)
                                                     <label for="asw-{{ $answer->id }}" class="answer-label font-16 text-dark-blue d-flex align-items-center justify-content-center">
@@ -119,8 +122,9 @@
                                                         </div>
                                                     </label>
                                                 @endif
-                                            </div>
+                                            </div> --}}
                                         @endforeach
+                                        </select>
                                     </div>
                                 @endif
                             </div>

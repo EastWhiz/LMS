@@ -35,9 +35,8 @@ class ResetPasswordController extends Controller
     public function showResetForm(Request $request, $token)
     {
         $updatePassword = DB::table('password_resets')
-            ->where(['email' => $request->email, 'token' => $token])
+            ->where(['token' => $token])
             ->first();
-
         if (!empty($updatePassword)) {
             return view(getTemplate() . '.auth.reset_password', ['token' => $token]);
         }

@@ -46,7 +46,6 @@
 @endphp
 
 <div id="panel_app">
-
     @include(getTemplate().'.includes.navbar')
 
     <div class="d-flex justify-content-end">

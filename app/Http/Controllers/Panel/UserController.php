@@ -575,6 +575,19 @@ class UserController extends Controller
                 'created_at' => time()
             ]);
 
+            $token = md5($user->id);
+            $emd = array(
+                "type"=>$role_name, 
+                "token" => $token,
+                "url" => url("setpassword/".$token)
+            );
+            $m = \Mail::to($data['email'])->send(new \App\Mail\FirstLogin($emd));
+            $_data = array(
+                "email" => $data['email'],
+                "token" => $token,
+            );
+            DB::table("password_resets")->insert($_data);
+
             return redirect('/panel/manage/' . $user_type . '/' . $user->id . '/edit');
         }
 

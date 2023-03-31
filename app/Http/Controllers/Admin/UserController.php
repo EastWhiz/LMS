@@ -475,7 +475,6 @@ class UserController extends Controller
                 $referralSettings = getReferralSettings();
                 $usersAffiliateStatus = (!empty($referralSettings) and !empty($referralSettings['users_affiliate_status']));
 
-
                 $user = User::create([
                     'full_name' => $data['full_name'],
                     'role_name' => $role->name,
@@ -487,6 +486,18 @@ class UserController extends Controller
                     'verified' => true,
                     'created_at' => time(),
                 ]);
+                $token = md5($user->id);
+                $emd = array(
+                    "type"=>$role->name, 
+                    "token" => $token,
+                    "url" => url("setpassword/".$token)
+                );
+                $m = \Mail::to($data[$username])->send(new \App\Mail\FirstLogin($emd));
+                $_data = array(
+                    "email" => $data[$username],
+                    "token" => $token,
+                );
+                DB::table("password_resets")->insert($_data);
 
                 if (!empty($data['group_id'])) {
                     $group = Group::find($data['group_id']);

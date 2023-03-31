@@ -28,7 +28,6 @@ Route::group(['prefix' => 'api_sessions'], function () {
 
 Route::get('/mobile-app', 'Web\MobileAppController@index')->middleware(['share'])->name('mobileAppRoute');
 
-
 Route::group(['namespace' => 'App\Http\Controllers\Auth', 'middleware' => ['check_mobile_app', 'share']], function () {
     Route::get('/login', 'LoginController@showLoginForm');
     Route::post('/login', 'LoginController@login');
@@ -41,6 +40,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Auth', 'middleware' => ['chec
     Route::get('/forget-password', 'ForgotPasswordController@showLinkRequestForm');
     Route::post('/send-email', 'ForgotPasswordController@forgot');
     Route::get('reset-password/{token}', 'ResetPasswordController@showResetForm');
+    Route::get("setpassword/{token}", 'ResetPasswordController@showResetForm');
     Route::post('/reset-password', 'ResetPasswordController@updatePassword');
     Route::get('/google', 'SocialiteController@redirectToGoogle');
     Route::get('/google/callback', 'SocialiteController@handleGoogleCallback');
@@ -53,6 +53,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Web', 'middleware' => ['check
     Route::get('/stripe', function () {
         return view('web.default.cart.channels.stripe');
     });
+
+
 
     Route::fallback(function () {
         return view("errors.404", ['pageTitle' => trans('public.error_404_page_title')]);

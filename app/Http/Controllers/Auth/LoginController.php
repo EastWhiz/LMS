@@ -189,7 +189,13 @@ class LoginController extends Controller
         if ($user->isAdmin()) {
             return redirect('/admin');
         } else {
-            return redirect('/panel');
+            if ($user->first_login == "0"){
+                $user->first_login = 1;
+                $user->save();
+                return redirect('/panel/setting');
+            }else{
+                return redirect('/panel');
+            }
         }
     }
 }

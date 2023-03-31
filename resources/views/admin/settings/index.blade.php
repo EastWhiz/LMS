@@ -34,7 +34,7 @@
                     </div>
                 @endcan
 
-                @can('admin_settings_financial')
+                {{-- @can('admin_settings_financial')
                     <div class="col-lg-6">
                         <div class="card card-large-icons">
                             <div class="card-icon bg-primary text-white">
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     </div>
-                @endcan
+                @endcan --}}
 
                 @can('admin_settings_personalization')
                     <div class="col-lg-6">

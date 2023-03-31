@@ -11,7 +11,7 @@
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="/admin/">{{ trans('admin/main.dashboard') }}</a></div>
                 <div class="breadcrumb-item active"><a href="/admin/settings">{{ trans('admin/main.settings') }}</a></div>
-                <div class="breadcrumb-item ">{{ trans('admin/main.main_general') }}</div>
+                <div class="breadsscrumb-item ">{{ trans('admin/main.main_general') }}</div>
             </div>
         </div>
 
@@ -45,6 +45,7 @@
                                 @include('admin.settings.general.socials',['itemValue' => (!empty($settings) and !empty($settings['socials'])) ? $settings['socials']->value : ''])
                                 @include('admin.settings.general.features',['itemValue' => (!empty($settings) and !empty($settings['features'])) ? $settings['features']->value : ''])
                                 @include('admin.settings.general.reminders',['itemValue' => (!empty($settings) and !empty($settings['reminders'])) ? $settings['reminders']->value : ''])
+                                
                             </div>
 
                         </div>
