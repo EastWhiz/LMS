@@ -20,25 +20,25 @@
             'icon' => 'folder'
         ],
 
-        4 => [
-            'name' => 'prerequisites',
-            'icon' => 'video'
-        ],
+        // 3 => [
+        //     'name' => 'prerequisites',
+        //     'icon' => 'video'
+        // ],
 
-        5 => [
+        4 => [
             'name' => 'faq',
             'icon' => 'tick_square'
         ],
 
-        6 => [
+        5 => [
             'name' => 'quiz_certificate',
             'icon' => 'ticket_star'
         ],
 
-        7 => [
-            'name' => 'message_to_reviewer',
-            'icon' => 'shield_done'
-        ],
+        // 6 => [
+        //     'name' => 'message_to_reviewer',
+        //     'icon' => 'shield_done'
+        // ],
     ];
 
     $currentStep = empty($currentStep) ? 1 : $currentStep;

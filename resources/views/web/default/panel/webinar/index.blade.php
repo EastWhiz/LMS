@@ -5,7 +5,7 @@
 @endpush
 
 @section('content')
-    <section>
+    {{-- <section>
         <h2 class="section-title">{{ trans('panel.my_activity') }}</h2>
 
         <div class="activities-container mt-25 p-20 p-lg-35">
@@ -43,13 +43,13 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <section class="mt-25">
         <div class="d-flex align-items-start align-items-md-center justify-content-between flex-column flex-md-row">
             <h2 class="section-title">{{ trans('panel.my_webinars') }}</h2>
 
-            <form action="" method="get">
+            {{-- <form action="" method="get">
                 <div class="d-flex align-items-center flex-row-reverse flex-md-row justify-content-start justify-content-md-center mt-20 mt-md-0">
                     <label class="cursor-pointer mb-0 mr-10 font-weight-500 font-14 text-gray" for="conductedSwitch">{{ trans('panel.only_not_conducted_webinars') }}</label>
                     <div class="custom-control custom-switch">
@@ -57,7 +57,7 @@
                         <label class="custom-control-label" for="conductedSwitch"></label>
                     </div>
                 </div>
-            </form>
+            </form> --}}
         </div>
 
         @if(!empty($webinars) and !$webinars->isEmpty())
@@ -114,7 +114,7 @@
                                 <div class="d-flex align-items-center justify-content-between">
                                     <a href="{{ $webinar->getUrl() }}" target="_blank">
                                         <h3 class="font-16 text-dark-blue font-weight-bold">{{ $webinar->title }}
-                                            <span class="badge badge-dark ml-10 status-badge-dark">{{ trans('webinars.'.$webinar->type) }}</span>
+                                            {{-- <span class="badge badge-dark ml-10 status-badge-dark">{{ trans('webinars.'.$webinar->type) }}</span> --}}
                                         </h3>
                                     </a>
 
@@ -124,25 +124,25 @@
                                                 <i data-feather="more-vertical" height="20"></i>
                                             </button>
                                             <div class="dropdown-menu ">
-                                                @if(!empty($webinar->start_date))
+                                                {{-- @if(!empty($webinar->start_date))
                                                     <button type="button" data-webinar-id="{{ $webinar->id }}" class="js-webinar-next-session webinar-actions btn-transparent d-block">{{ trans('public.create_join_link') }}</button>
-                                                @endif
+                                                @endif --}}
 
-                                                <a href="{{ $webinar->getLearningPageUrl() }}" target="_blank" class="webinar-actions d-block mt-10">{{ trans('update.learning_page') }}</a>
+                                                {{-- <a href="{{ $webinar->getLearningPageUrl() }}" target="_blank" class="webinar-actions d-block mt-10">{{ trans('update.learning_page') }}</a> --}}
 
                                                 <a href="/panel/webinars/{{ $webinar->id }}/edit" class="webinar-actions d-block mt-10">{{ trans('public.edit') }}</a>
 
-                                                @if($webinar->isWebinar())
+                                                {{-- @if($webinar->isWebinar())
                                                     <a href="/panel/webinars/{{ $webinar->id }}/step/4" class="webinar-actions d-block mt-10">{{ trans('public.sessions') }}</a>
-                                                @endif
+                                                @endif --}}
 
                                                 <a href="/panel/webinars/{{ $webinar->id }}/step/4" class="webinar-actions d-block mt-10">{{ trans('public.files') }}</a>
 
-                                                <a href="/panel/webinars/{{ $webinar->id }}/export-students-list" class="webinar-actions d-block mt-10">{{ trans('public.export_list') }}</a>
+                                                {{-- <a href="/panel/webinars/{{ $webinar->id }}/export-students-list" class="webinar-actions d-block mt-10">{{ trans('public.export_list') }}</a> --}}
 
-                                                @if($authUser->id == $webinar->creator_id)
+                                                {{-- @if($authUser->id == $webinar->creator_id)
                                                     <a href="/panel/webinars/{{ $webinar->id }}/duplicate" class="webinar-actions d-block mt-10">{{ trans('public.duplicate') }}</a>
-                                                @endif
+                                                @endif --}}
 
 
                                                 <a href="/panel/webinars/{{ $webinar->id }}/statistics" class="webinar-actions d-block mt-10">{{ trans('update.statistics') }}</a>
@@ -157,7 +157,7 @@
 
                                 @include(getTemplate() . '.includes.webinar.rate',['rate' => $webinar->getRate()])
 
-                                <div class="webinar-price-box mt-15">
+                                {{-- <div class="webinar-price-box mt-15">
                                     @if($webinar->price > 0)
                                         @if($webinar->bestTicket() < $webinar->price)
                                             <span class="real">{{ handlePrice($webinar->bestTicket()) }}</span>
@@ -168,7 +168,7 @@
                                     @else
                                         <span class="real">{{ trans('public.free') }}</span>
                                     @endif
-                                </div>
+                                </div> --}}
 
                                 <div class="d-flex align-items-center justify-content-between flex-wrap mt-auto">
                                     <div class="d-flex align-items-start flex-column mt-20 mr-15">
@@ -263,8 +263,8 @@
         @else
             @include(getTemplate() . '.includes.no-result',[
                 'file_name' => 'webinar.png',
-                'title' => trans('panel.you_not_have_any_webinar'),
-                'hint' =>  trans('panel.no_result_hint') ,
+                'title' => "No Video",
+                'hint' =>  "Create your first video and let others learn from you." ,
                 'btn' => ['url' => '/panel/webinars/new','text' => trans('panel.create_a_webinar') ]
             ])
         @endif

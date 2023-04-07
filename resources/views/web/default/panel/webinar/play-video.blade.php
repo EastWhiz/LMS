@@ -44,10 +44,14 @@
                             $exp = explode(".", $file);
                             $extension = end($exp)
                         @endphp
+                        {{$quiz}}
+                       <div>
                         <video width="320" height="240" id="myVideo" controls>
                             <source src="{{$file}}" type="video/{{$extension}}">
                             Your browser does not support the video tag.
                         </video>
+                       </div>
+                        
                         @if($quiz!="")
                             <script type='text/javascript'>
                                 document.getElementById('myVideo').addEventListener('ended',myHandler,false);

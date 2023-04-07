@@ -29,6 +29,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Validator;
+use App\Http\Controllers\Panel\FileController;
 
 class WebinarController extends Controller
 {
@@ -492,7 +493,7 @@ class WebinarController extends Controller
     public function update(Request $request, $id)
     {
         $user = auth()->user();
-
+        
         if (!$user->isTeacher() and !$user->isOrganization()) {
             abort(404);
         }
@@ -548,11 +549,12 @@ class WebinarController extends Controller
             $webinarRulesRequired = empty($data['rules']);
         }
 
-        $this->validate($request, $rules);
+        //$this->validate($request, $rules);
 
 
         $data['status'] = ($isDraft or $webinarRulesRequired) ? Webinar::$isDraft : Webinar::$pending;
         $data['updated_at'] = time();
+        
 
         if ($currentStep == 1) {
             $data['private'] = (!empty($data['private']) and $data['private'] == 'on');
@@ -600,7 +602,7 @@ class WebinarController extends Controller
                 unset($data['partners']);
             }
 
-            if ($data['category_id'] !== $webinar->category_id) {
+            if (isset($data['category_id']) and  $data['category_id'] !== $webinar->category_id) {
                 WebinarFilterOption::where('webinar_id', $webinar->id)->delete();
             }
         }
@@ -646,12 +648,17 @@ class WebinarController extends Controller
         if ($webinar and $currentStep == 1) {
             WebinarTranslation::updateOrCreate([
                 'webinar_id' => $webinar->id,
-                'locale' => mb_strtolower($data['locale']),
+                //'locale' => mb_strtolower($data['locale']),
             ], [
                 'title' => $data['title'],
                 'description' => $data['description'],
                 'seo_description' => $data['seo_description'],
             ]);
+        }
+
+        if ($webinar and $currentStep == 3){
+            $FileController = new FIleController;
+            $FileController->custom_store($request);
         }
 
         // $FileController = new FileController;

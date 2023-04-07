@@ -15,6 +15,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
     Route::post('/reset-password', 'ResetPasswordController@updatePassword');
 
     Route::group(['middleware' => 'admin'], function () {
+        Route::match(["get", "post"],"/policy/add", "PolicyController@Add");
 
         Route::get('/', 'DashboardController@index');
         Route::get('/clear-cache', 'DashboardController@cacheClear');

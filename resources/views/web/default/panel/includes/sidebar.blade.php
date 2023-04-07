@@ -161,18 +161,18 @@
                         </li>
                     @endif --}}
                     @if($authUser->isOrganization())
-                        <li class="mt-5 {{ (request()->is('panel/webinars/my-comments')) ? 'active' : '' }}">
+                        {{-- <li class="mt-5 {{ (request()->is('panel/webinars/my-comments')) ? 'active' : '' }}">
                             <a href="/panel/webinars/my-comments">{{ trans('panel.comments') }}</a>
-                        </li>
+                        </li> --}}
                     @else
-                        <li class="mt-5 {{ (request()->is('panel/webinars/my-comments')) ? 'active' : '' }}">
+                        {{-- <li class="mt-5 {{ (request()->is('panel/webinars/my-comments')) ? 'active' : '' }}">
                             <a href="/panel/webinars/my-comments">{{ trans('panel.comments') }}</a>
-                        </li>
+                        </li> --}}
                     @endif
 
-                    <li class="mt-5 {{ (request()->is('panel/webinars/favorites')) ? 'active' : '' }}">
+                    {{-- <li class="mt-5 {{ (request()->is('panel/webinars/favorites')) ? 'active' : '' }}">
                         <a href="/panel/webinars/favorites">{{ trans('panel.favorites') }}</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </li>
@@ -320,7 +320,7 @@
             </div>
         </li>
 
-        @if($authUser->checkCanAccessToStore())
+        {{-- @if($authUser->checkCanAccessToStore())
             <li class="sidenav-item {{ (request()->is('panel/store') or request()->is('panel/store/*')) ? 'sidenav-item-active' : '' }}">
                 <a class="d-flex align-items-center" data-toggle="collapse" href="#storeCollapse" role="button" aria-expanded="false" aria-controls="storeCollapse">
                 <span class="sidenav-item-icon assign-fill mr-10">
@@ -370,7 +370,7 @@
                     </ul>
                 </div>
             </li>
-        @endif
+        @endif --}}
 
         {{-- <li class="sidenav-item {{ (request()->is('panel/financial') or request()->is('panel/financial/*')) ? 'sidenav-item-active' : '' }}">
             <a class="d-flex align-items-center" data-toggle="collapse" href="#financialCollapse" role="button" aria-expanded="false" aria-controls="financialCollapse">
@@ -413,6 +413,18 @@
                 </ul>
             </div>
         </li> --}}
+
+        @if($authUser->isOrganization())
+        <li class="sidenav-item {{ (request()->is('panel/policy/')) ? 'sidenav-item-active' : '' }}">
+            <a class="d-flex align-items-center" href="{{url('panel/policy/add')}}">
+                <span class="sidenav-item-icon assign-fill mr-10">
+                    @include('web.default.panel.includes.sidebar_icons.support')
+                </span>
+                <span class="font-14 text-dark-blue font-weight-500">Policy</span>
+            </a>
+            
+        </li>
+        @endif
 
         <li class="sidenav-item {{ (request()->is('panel/support') or request()->is('panel/support/*')) ? 'sidenav-item-active' : '' }}">
             <a class="d-flex align-items-center" data-toggle="collapse" href="#supportCollapse" role="button" aria-expanded="false" aria-controls="supportCollapse">

@@ -1,0 +1,6 @@
+-----------------
+cPanel Login info
+------------------
+pidprotect.com/cpanel
+user: djbh3hqty96y
+pass: $5UJFwk@TT@

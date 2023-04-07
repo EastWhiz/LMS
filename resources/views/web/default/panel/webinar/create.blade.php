@@ -20,7 +20,18 @@
             @if($currentStep == 1)
                 @include('web.default.panel.webinar.create_includes.step_1')
             @elseif(!empty($webinar))
-                @include('web.default.panel.webinar.create_includes.step_'.$currentStep)
+                @php
+                    if ($currentStep==3){
+                        $file_step = 4;
+                    }elseif ($currentStep==4){
+                        $file_step = 6;
+                    }elseif ($currentStep==5){
+                        $file_step = 7;
+                    }else{
+                        $file_step = $currentStep;
+                    }
+                @endphp
+                @include('web.default.panel.webinar.create_includes.step_'.$file_step)
             @endif
 
         </form>

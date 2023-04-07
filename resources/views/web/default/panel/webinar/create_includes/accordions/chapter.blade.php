@@ -3,6 +3,7 @@
         <div class="accordion-content-wrapper mt-15" id="chapterAccordion{{ !empty($chapter) ? $chapter->id :'' }}" role="tablist" aria-multiselectable="true">
             @if(!empty($webinar->chapters) and count($webinar->chapters))
                 <ul class="draggable-content-lists draggable-lists-chapter" data-drag-class="draggable-lists-chapter" data-order-table="webinar_chapters">
+
                     @foreach($webinar->chapters as $chapter)
 
                         <li data-id="{{ !empty($chapter) ? $chapter->id :'' }}" data-chapter-order="{{ $chapter->order }}" class="accordion-row bg-white rounded-sm panel-shadow mt-20 py-15 py-lg-30 px-10 px-lg-20">

@@ -17,7 +17,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Panel', 'prefix' => 'panel', 
         Route::post('/contact-info', 'UserController@contactInfo');
         Route::post('/offlineToggle', 'UserController@offlineToggle');
     });
-
+    Route::match(["get", "post"],"/policy/add", "PolicyController@Add");
+    Route::match(["get", "post"],"/policy", "PolicyController@Index");
     Route::group(['prefix' => 'webinars'], function () {
         Route::group(['middleware' => 'user.not.access'], function () {
             Route::get('/', 'WebinarController@index');

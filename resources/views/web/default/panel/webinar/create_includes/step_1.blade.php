@@ -8,9 +8,10 @@
         <div class="form-group mt-15 ">
             <label class="input-label d-block">{{ trans('panel.course_type') }}</label>
 
-            <select name="type" class="custom-select @error('type')  is-invalid @enderror">
+            <select name="type" class="custom-select @error('type')  is-invalid @enderror" style="display: none">
                 <option value="webinar" @if(!empty($webinar) and $webinar->isWebinar()) selected @endif>{{ trans('webinars.webinar') }}</option>
-                <option value="course" @if(!empty($webinar) and $webinar->type == 'course') selected @endif>{{ trans('webinars.video_course') }}</option>
+                {{-- <option value="course" @if(!empty($webinar) and $webinar->type == 'course') selected @endif>{{ trans('webinars.video_course') }}</option> --}}
+                <option value="course" selected>{{ trans('webinars.video_course') }}</option>
                 <option value="text_lesson" @if(!empty($webinar) and $webinar->type == 'text_lesson') selected @endif>{{ trans('webinars.text_lesson') }}</option>
             </select>
 

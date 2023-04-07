@@ -889,6 +889,13 @@
                     </ul>
                 </li>
             @endcan
+            
+            <li class="{{ (request()->is('admin/policy')) ? 'active' : '' }}">
+                <a href="/admin/policy/add" class="nav-link">
+                    <i class="fas fa-pager"></i>
+                    <span>Policy</span>
+                </a>
+            </li>
 
             @can('admin_testimonials')
                 <li class="nav-item dropdown {{ (request()->is('admin/testimonials*')) ? 'active' : '' }}">
@@ -920,6 +927,7 @@
                     </a>
                 </li>
             @endcan()
+            
 
             @can('admin_regions')
                 <li class="nav-item dropdown {{ (request()->is('admin/regions*')) ? 'active' : '' }}">

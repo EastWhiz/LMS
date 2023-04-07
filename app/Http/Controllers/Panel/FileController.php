@@ -13,7 +13,18 @@ use Illuminate\Validation\Rule;
 use Validator;
 
 class FileController extends Controller
-{
+{   
+
+    function custom_store($request)
+    {
+        if ($request->save_type=="store"){
+            return $this->store($request);
+        }elseif($request->save_type=="update"){
+            return $this->update($request);
+        }
+    }
+
+
     public function store(Request $request)
     {
         $user = auth()->user();
@@ -40,14 +51,14 @@ class FileController extends Controller
         }
 
         $rules = [
-            'webinar_id' => 'required',
-            'chapter_id' => 'required',
-            'title' => 'required|max:255',
-            'accessibility' => 'required|' . Rule::in(File::$accessibility),
+            // 'webinar_id' => 'required',
+            // 'chapter_id' => 'required',
+            // 'title' => 'required|max:255',
+            // 'accessibility' => 'required|' . Rule::in(File::$accessibility),
             'file_path' => 'required',
-            'file_type' => Rule::requiredIf(in_array($data['storage'], $sourceRequiredFileType)),
-            'volume' => Rule::requiredIf(in_array($data['storage'], $sourceRequiredFileVolume)),
-            'description' => 'nullable',
+            // 'file_type' => Rule::requiredIf(in_array($data['storage'], $sourceRequiredFileType)),
+            // 'volume' => Rule::requiredIf(in_array($data['storage'], $sourceRequiredFileVolume)),
+            // 'description' => 'nullable',
         ];
 
         if ($data['storage'] == 'upload_archive') {
@@ -130,9 +141,9 @@ class FileController extends Controller
                 'chapter_id' => $data['chapter_id'],
                 'file' => $data['file_path'],
                 'volume' => formatSizeUnits(!empty($fileInfos) ? $fileInfos['size'] : $data['volume']),
-                'file_type' => !empty($fileInfos) ? $fileInfos['extension'] : $data['file_type'],
-                'accessibility' => $data['accessibility'],
-                'storage' => $data['storage'],
+                'file_type' => "video",
+                'accessibility' => "free",
+                'storage' => isset($data['storage']) ? $data['storage'] : "",
                 'interactive_type' => $data['interactive_type'] ?? null,
                 'interactive_file_name' => $data['interactive_file_name'] ?? null,
                 'interactive_file_path' => $data['interactive_file_path'] ?? null,
@@ -144,17 +155,17 @@ class FileController extends Controller
                 'created_at' => time()
             ]);
 
-            if (!empty($file)) {
-                FileTranslation::updateOrCreate([
-                    'file_id' => $file->id,
-                    'locale' => mb_strtolower($data['locale']),
-                ], [
-                    'title' => $data['title'],
-                    'description' => $data['description'],
-                ]);
+            // if (!empty($file)) {
+            //     FileTranslation::updateOrCreate([
+            //         'file_id' => $file->id,
+            //         'locale' => mb_strtolower($data['locale']),
+            //     ], [
+            //         'title' => $data['title'],
+            //         'description' => $data['description'],
+            //     ]);
 
-                WebinarChapterItem::makeItem($user->id, $file->chapter_id, $file->id, WebinarChapterItem::$chapterFile);
-            }
+            //     WebinarChapterItem::makeItem($user->id, $file->chapter_id, $file->id, WebinarChapterItem::$chapterFile);
+            // }
 
             return response()->json([
                 'code' => 200,

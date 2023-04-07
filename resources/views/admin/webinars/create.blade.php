@@ -489,26 +489,22 @@
                                     </div>
 
                                     <div class="col-6" style="padding-left:0px;">
-
-
-                                        
-                                    </select>
-                                    @php
-                                        $storage = "";
-                                        $file_name = "";
-                                        $file_type = "";
-                                        $file_id = "";
-                                        if (!empty($webinar)){
-                                            $file = \App\Models\FIle::where("webinar_id", $webinar->id)->first();
-                                            if (isset($file->id)){
-                                                $storage = $file->storage;
-                                                $file_name = $file->file;
-                                                $file_type = $file->file_type;
-                                                $file_id = $file->id;
+                                        @php
+                                            $storage = "";
+                                            $file_name = "";
+                                            $file_type = "";
+                                            $file_id = "";
+                                            if (!empty($webinar)){
+                                                $file = \App\Models\FIle::where("webinar_id", $webinar->id)->first();
+                                                if (isset($file->id)){
+                                                    $storage = $file->storage;
+                                                    $file_name = $file->file;
+                                                    $file_type = $file->file_type;
+                                                    $file_id = $file->id;
+                                                }
                                             }
-                                        }
 
-                                    @endphp
+                                        @endphp
                                         <div class="form-group">
                                             <label class="input-label">{{ trans('public.source') }}</label>
                                             <select name="storage"

@@ -122,13 +122,13 @@
             <p class="font-12 text-gray">- {{ trans('update.certificate_completion_hint') }}</p>
         </div>
 
-        <div class="form-group mt-30 d-flex align-items-center justify-content-between">
+        {{-- <div class="form-group mt-30 d-flex align-items-center justify-content-between">
             <label class="cursor-pointer input-label" for="downloadableSwitch">{{ trans('home.downloadable') }}</label>
             <div class="custom-control custom-switch">
                 <input type="checkbox" name="downloadable" class="custom-control-input" id="downloadableSwitch" {{ ((!empty($webinar) && $webinar->downloadable) or old('downloadable') == 'on') ? 'checked' : '' }}>
                 <label class="custom-control-label" for="downloadableSwitch"></label>
             </div>
-        </div>
+        </div> --}}
 
         <div class="form-group mt-30 d-none align-items-center justify-content-between">
             <label class="cursor-pointer input-label" for="partnerInstructorSwitch">{{ trans('public.partner_instructor') }}</label>
