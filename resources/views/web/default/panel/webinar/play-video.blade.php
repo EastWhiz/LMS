@@ -44,7 +44,6 @@
                             $exp = explode(".", $file);
                             $extension = end($exp)
                         @endphp
-                        {{$quiz}}
                        <div>
                         <video width="320" height="240" id="myVideo" controls>
                             <source src="{{$file}}" type="video/{{$extension}}">

@@ -40,26 +40,26 @@
                         <i data-feather="x" width="32" height="32"></i>
                     </button>
                 </div>
-                @if(auth()->user()->role_name=="user")
-                <ul class="navbar-nav mr-auto d-flex align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Training</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Nuget Training</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Dark Web</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="panel/policy">Policy</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="panel/notifications">Newsletter</a>
-                    </li>
-                </ul>
+                @if(isset(auth()->user()->role_name) and auth()->user()->role_name=="user")
+                    <ul class="navbar-nav mr-auto d-flex align-items-center">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Training</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Micro Training</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Dark Web</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="panel/policy">Policy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="panel/notifications">Newsletter</a>
+                        </li>
+                    </ul>
+                @endif
             </div>
-            @endif
 
             <div class="nav-icons-or-start-live navbar-order">
 

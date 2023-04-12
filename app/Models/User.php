@@ -116,7 +116,7 @@ class User extends Authenticatable
         if (!empty($this->avatar)) {
             $avatarUrl = $this->avatar;
         } else {
-            $avatarUrl = "/getDefaultAvatar?item={$this->id}&name={$this->full_name}&size=$size";
+            $avatarUrl = url("assets/avatar.png");
         }
 
         return $avatarUrl;

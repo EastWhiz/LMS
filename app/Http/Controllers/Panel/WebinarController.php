@@ -1334,7 +1334,7 @@ class WebinarController extends Controller
             abort(404);
         }
         $file = File::where("webinar_id", $w->id)->first();
-        $quiz = Quiz::where("webinar_id", $w->id)->first();
+        $quiz = Quiz::where("webinar_id", $w->id)->orderBy("created_at", "desc")->first();
         $quiz_url = "";
         if (isset($quiz->id)){
             $quiz_url = url('panel/quizzes/'.$quiz->id.'/start');
@@ -1343,6 +1343,18 @@ class WebinarController extends Controller
         $data['pageTitle'] = $w->title;
         $data["source"] = $file; 
         $data["quiz"] = $quiz_url;
+
+        $chk = DB::table("watch_video")->where([
+            ["webinar_id", "=", $w->id],
+            ["user_id", $user->id]
+        ])->first();
+        if (!isset($chk->id)){
+            DB::table("watch_video")->insert([
+                "webinar_id" => $w->id,
+                "user_id" => $user->id,
+                "status" => "1"
+            ]);
+        }
 
         return view(getTemplate() . '.panel.webinar.play-video', $data);
     }
