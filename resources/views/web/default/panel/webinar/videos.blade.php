@@ -30,7 +30,7 @@
                             @endphp
                             @php
                             $q = App\Models\Quiz::where("webinar_id",  $webinar->id)->first();
-                            $r = $q->quizResults;
+                            $r = (isset($q->quizResults)) ? $q->quizResults : array() ;
                             $result = 0;
                             if (isset($q->quizResults)){
                                 foreach($q->quizResults as $k=>$v){

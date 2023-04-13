@@ -16,6 +16,7 @@ class QuizzesQuestion extends Model implements TranslatableContract
 
     static $multiple = 'multiple';
     static $descriptive = 'descriptive';
+    static $true_false = "true_false";
 
     public $translatedAttributes = ['title', 'correct'];
 
