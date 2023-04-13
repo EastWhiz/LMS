@@ -136,7 +136,7 @@
                                                     <a href="/panel/webinars/{{ $webinar->id }}/step/4" class="webinar-actions d-block mt-10">{{ trans('public.sessions') }}</a>
                                                 @endif --}}
 
-                                                <a href="/panel/webinars/{{ $webinar->id }}/step/4" class="webinar-actions d-block mt-10">{{ trans('public.files') }}</a>
+                                                <a href="/panel/webinars/{{ $webinar->id }}/step/3" class="webinar-actions d-block mt-10">Attach Video</a>
 
                                                 {{-- <a href="/panel/webinars/{{ $webinar->id }}/export-students-list" class="webinar-actions d-block mt-10">{{ trans('public.export_list') }}</a> --}}
 
@@ -145,7 +145,7 @@
                                                 @endif --}}
 
 
-                                                <a href="/panel/webinars/{{ $webinar->id }}/statistics" class="webinar-actions d-block mt-10">{{ trans('update.statistics') }}</a>
+                                                {{-- <a href="/panel/webinars/{{ $webinar->id }}/statistics" class="webinar-actions d-block mt-10">{{ trans('update.statistics') }}</a> --}}
 
                                                 @if($webinar->creator_id == $authUser->id)
                                                     <a href="/panel/webinars/{{ $webinar->id }}/delete" class="webinar-actions d-block mt-10 text-danger delete-action">{{ trans('public.delete') }}</a>
@@ -187,12 +187,12 @@
                                             <span class="stat-value">{{ convertMinutesToHourAndMinute($nextSession->duration) }} Hrs</span>
                                         </div>
 
-                                        @if($webinar->isWebinar())
+                                        {{-- @if($webinar->isWebinar())
                                             <div class="d-flex align-items-start flex-column mt-20 mr-15">
                                                 <span class="stat-title">{{ trans('webinars.next_session_start_date') }}:</span>
                                                 <span class="stat-value">{{ dateTimeFormat($nextSession->date,'j M Y') }}</span>
                                             </div>
-                                        @endif
+                                        @endif --}}
                                     @else
                                         <div class="d-flex align-items-start flex-column mt-20 mr-15">
                                             <span class="stat-title">{{ trans('public.duration') }}:</span>
@@ -207,31 +207,31 @@
                                         @endif
                                     @endif
 
-                                    @if($webinar->isTextCourse() or $webinar->isCourse())
+                                    {{-- @if($webinar->isTextCourse() or $webinar->isCourse())
                                         <div class="d-flex align-items-start flex-column mt-20 mr-15">
                                             <span class="stat-title">{{ trans('public.files') }}:</span>
                                             <span class="stat-value">{{ $webinar->files->count() }}</span>
                                         </div>
-                                    @endif
+                                    @endif --}}
 
-                                    @if($webinar->isTextCourse())
+                                    {{-- @if($webinar->isTextCourse())
                                         <div class="d-flex align-items-start flex-column mt-20 mr-15">
                                             <span class="stat-title">{{ trans('webinars.text_lessons') }}:</span>
                                             <span class="stat-value">{{ $webinar->textLessons->count() }}</span>
                                         </div>
-                                    @endif
+                                    @endif --}}
 
-                                    @if($webinar->isCourse())
+                                    {{-- @if($webinar->isCourse())
                                         <div class="d-flex align-items-start flex-column mt-20 mr-15">
                                             <span class="stat-title">{{ trans('home.downloadable') }}:</span>
                                             <span class="stat-value">{{ ($webinar->downloadable) ? trans('public.yes') : trans('public.no') }}</span>
                                         </div>
-                                    @endif
+                                    @endif --}}
 
-                                    <div class="d-flex align-items-start flex-column mt-20 mr-15">
+                                    {{-- <div class="d-flex align-items-start flex-column mt-20 mr-15">
                                         <span class="stat-title">{{ trans('panel.sales') }}:</span>
                                         <span class="stat-value">{{ count($webinar->sales) }} ({{ (!empty($webinar->sales) and count($webinar->sales)) ? addCurrencyToPrice($webinar->sales->sum('amount')) : 0 }})</span>
-                                    </div>
+                                    </div> --}}
 
                                     @if(!empty($webinar->partner_instructor) and $webinar->partner_instructor and $authUser->id != $webinar->teacher_id and $authUser->id != $webinar->creator_id)
                                         <div class="d-flex align-items-start flex-column mt-20 mr-15">

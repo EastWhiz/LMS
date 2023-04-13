@@ -25,7 +25,7 @@
 
         function DescSort($val1,$val2){
             if ($val1['result'] == $val2['result']) return 0;
-            sreturn ($val1['result'] < $val2['result']) ? 1 : -1;
+            return ($val1['result'] < $val2['result']) ? 1 : -1;
         }
 
         usort($results,'DescSort');
