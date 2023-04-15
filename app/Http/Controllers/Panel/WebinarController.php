@@ -289,8 +289,8 @@ class WebinarController extends Controller
         $rules = [
             //'type' => 'required|in:webinar,course,text_lesson',
             'title' => 'required|max:255',
-            'thumbnail' => 'required',
-            'image_cover' => 'required',
+            // 'thumbnail' => 'required',
+            // 'image_cover' => 'required',
             'description' => 'required',
         ];
 
@@ -303,6 +303,12 @@ class WebinarController extends Controller
 
         if (!empty($data['video_demo_source']) and !in_array($data['video_demo_source'], ['upload', 'youtube', 'vimeo', 'external_link'])) {
             $data['video_demo_source'] = 'upload';
+        }
+
+        if ((!empty($data['draft']) and $data['draft'] == 2)){
+            $status = "active";
+        }else{
+            $status = ((!empty($data['draft']) and $data['draft'] == 1) or (!empty($data['get_next']) and $data['get_next'] == 1)) ? Webinar::$isDraft : Webinar::$pending;
         }
 
         $webinar = Webinar::create([
@@ -525,8 +531,8 @@ class WebinarController extends Controller
             $rules = [
                 //'type' => 'required|in:webinar,course,text_lesson',
                 'title' => 'required|max:255',
-                'thumbnail' => 'required',
-                'image_cover' => 'required',
+                // 'thumbnail' => 'required',
+                // 'image_cover' => 'required',
                 'description' => 'required',
             ];
         }
@@ -550,9 +556,13 @@ class WebinarController extends Controller
         }
 
         //$this->validate($request, $rules);
+        if ((!empty($data['draft']) and $data['draft'] == 2)){
+            $status = "active";
+        }else{
+            $status = ($isDraft or $webinarRulesRequired) ? Webinar::$isDraft : Webinar::$pending;
+        }
 
-
-        $data['status'] = ($isDraft or $webinarRulesRequired) ? Webinar::$isDraft : Webinar::$pending;
+        $data['status'] = $status;
         $data['updated_at'] = time();
         
 

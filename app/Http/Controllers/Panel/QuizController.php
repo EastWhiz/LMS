@@ -139,7 +139,7 @@ class QuizController extends Controller
         $rules = [
             'title' => 'required|max:255',
             'webinar_id' => 'nullable',
-            'pass_mark' => 'required',
+            // 'pass_mark' => 'required',
         ];
 
         if ($request->ajax()) {
@@ -172,8 +172,7 @@ class QuizController extends Controller
                     ->first();
             }
         }
-
-        $quiz = Quiz::create([
+        $data_sv = [
             'webinar_id' => !empty($webinar) ? $webinar->id : null,
             'chapter_id' => !empty($chapter) ? $chapter->id : null,
             'creator_id' => $user->id,
@@ -184,9 +183,11 @@ class QuizController extends Controller
             'status' => (!empty($data['status']) and $data['status'] == 'on') ? Quiz::ACTIVE : Quiz::INACTIVE,
             'certificate' => (!empty($data['certificate']) and $data['certificate'] == 'on') ? true : false,
             'created_at' => time(),
-        ]);
+        ];
+        $quiz = Quiz::create($data_sv);
 
         if (!empty($quiz)) {
+            $data["locale"] = "";
             QuizTranslation::updateOrCreate([
                 'quiz_id' => $quiz->id,
                 'locale' => mb_strtolower($data['locale']),

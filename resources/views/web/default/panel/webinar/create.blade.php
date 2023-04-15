@@ -52,6 +52,8 @@
             <div class="mt-20 mt-md-0">
                 <button type="button" id="sendForReview" class="btn btn-sm btn-primary">{{ trans('public.send_for_review') }}</button>
 
+                <button type="button" id="saveAsPublish" class="btn btn-sm btn-primary">Save as publish</button>
+
                 <button type="button" id="saveAsDraft" class=" btn btn-sm btn-primary">{{ trans('public.save_as_draft') }}</button>
 
                 @if(!empty($webinar) and $webinar->creator_id == $authUser->id)

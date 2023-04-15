@@ -88,6 +88,7 @@
 
                     <div class="d-flex align-items-center mt-20 mt-md-0">
                         <button id="add_multiple_question" data-quiz-id="{{ $quiz->id }}" type="button" class="btn btn-primary btn-sm ml-10">{{ trans('quiz.add_multiple_choice') }}</button>
+                        <button id="add_true_false" data-quiz-id="{{ $quiz->id }}" type="button" class="btn btn-primary btn-sm ml-10">Add True False</button>
                         <button id="add_descriptive_question" data-quiz-id="{{ $quiz->id }}" type="button" class="btn btn-primary btn-sm ml-10">{{ trans('quiz.add_descriptive') }}</button>
                     </div>
                 </div>
@@ -98,7 +99,16 @@
                             <div class="flex-grow-1">
                                 <h4 class="question-title">{{ $question->title }}</h4>
                                 <div class="font-12 mt-5 question-infos">
-                                    <span>{{ $question->type === App\Models\QuizzesQuestion::$multiple ? trans('quiz.multiple_choice') : trans('quiz.descriptive') }} | {{ trans('quiz.grade') }}: {{ $question->grade }}</span>
+                                    <span>
+                                        @if ($question->type === App\Models\QuizzesQuestion::$multiple)
+                                            Multiple choice 
+                                        @elseif ($question->type === 
+                                        App\Models\QuizzesQuestion::$true_false)
+                                            True False
+                                        @else
+                                            Descriptive
+                                        @endif
+                                        {{-- | {{ trans('quiz.grade') }}: {{ $question->grade }}</span> --}}
                                 </div>
                             </div>
 
@@ -133,4 +143,5 @@
 @if(!empty($quiz))
     @include('admin.quizzes.modals.multiple_question',['quiz' => $quiz])
     @include('admin.quizzes.modals.descriptive_question',['quiz' => $quiz])
+    @include('admin.quizzes.modals.true_false',['quiz' => $quiz])
 @endif

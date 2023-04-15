@@ -34,14 +34,14 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-4">
-                    <div class="form-group">
+                    <div class="form-group d-none">
                         <label class="input-label">{{ trans('quiz.grade') }}</label>
-                        <input type="text" name="ajax[grade]" class="js-ajax-grade form-control" value="{{ !empty($question_edit) ? $question_edit->grade : '' }}"/>
+                        <input type="text" name="ajax[grade]" class="js-ajax-grade form-control" value="{{ !empty($question_edit) ? $question_edit->grade : '1' }}"/>
                         <span class="invalid-feedback"></span>
                     </div>
                 </div>
 
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-6 d-none">
                     <div class="form-group">
                         <label class="input-label">{{ trans('public.image') }} ({{ trans('public.optional') }})</label>
 
@@ -57,7 +57,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-6 d-none">
                     <div class="form-group">
                         <label class="input-label">{{ trans('update.video') }} ({{ trans('public.optional') }})</label>
 
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                 </div>
-            <p class="font-12 text-gray col-12 pb-10">{{ trans('update.quiz_question_image_validation_by_video') }}</p>
+                <p class="font-12 text-gray col-12 pb-10">{{ trans('update.quiz_question_image_validation_by_video') }}</p>
             </div>
 
             <div class="mt-25">

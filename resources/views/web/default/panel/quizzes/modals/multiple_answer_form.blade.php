@@ -13,7 +13,7 @@
     </div>
 
     <div class="row mt-15 align-items-end">
-        <div class="col-12 col-md-8">
+        <div class="col-12 col-md-8 d-none">
             <div class="form-group">
                 <label class="input-label">{{ trans('quiz.answer_image') }}</label>
                 <div class="input-group">

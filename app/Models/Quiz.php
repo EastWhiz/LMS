@@ -31,7 +31,7 @@ class Quiz extends Model implements TranslatableContract
     {
         return $this->hasMany('App\Models\QuizzesQuestion', 'quiz_id', 'id');
     }
-
+ 
     public function quizResults()
     {
         return $this->hasMany('App\Models\QuizzesResult', 'quiz_id', 'id');

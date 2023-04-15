@@ -147,4 +147,9 @@
     </script>
 
     <script src="/assets/default/js/admin/quiz.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            
+        });
+    </script>
 @endpush

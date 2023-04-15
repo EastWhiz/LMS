@@ -5,7 +5,7 @@
                 <i data-feather="award" class=""></i>
             </span>
 
-            <span class="font-weight-bold text-dark-blue d-block">{{ !empty($quizInfo) ? $quizInfo->title : trans('public.add_new_quizzes') }}</span>
+            <span class="font-weight-bold text-dark-blue d-block">{{ !empty($quizInfo) ? $quizInfo->webinar_title : trans('public.add_new_quizzes') }}</span>
         </div>
 
         <div class="d-flex align-items-center">

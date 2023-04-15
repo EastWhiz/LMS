@@ -89,7 +89,7 @@
                                             <span class="badge badge-secondary">{{ trans('public.finished') }}</span>
                                         @endif
                                     @else
-                                        <span class="badge badge-secondary">{{ trans('webinars.'.$webinar->type) }}</span>
+                                        <span class="badge badge-secondary">Publish</span>
                                     @endif
                                     @break
                                     @case(\App\Models\Webinar::$isDraft)
