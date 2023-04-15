@@ -43,7 +43,7 @@ class QuizQuestionController extends Controller
             ]);
         }
 
-        if ($data['type'] == QuizzesQuestion::$multiple and !empty($data['answers'])) {
+        if ( ($data['type'] == QuizzesQuestion::$multiple or $data['type'] == QuizzesQuestion::$true_false ) and !empty($data['answers'])) {
             $answers = $data['answers'];
 
             $hasCorrect = false;
@@ -94,7 +94,7 @@ class QuizQuestionController extends Controller
 
             $quiz->increaseTotalMark($quizQuestion->grade);
 
-            if ($quizQuestion->type == QuizzesQuestion::$multiple and !empty($data['answers'])) {
+            if ( ($quizQuestion->type == QuizzesQuestion::$multiple  or $quizQuestion->type == QuizzesQuestion::$true_false) and !empty($data['answers'])) {
 
                 foreach ($answers as $answer) {
                     if (!empty($answer['title']) or !empty($answer['file'])) {

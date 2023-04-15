@@ -24,7 +24,7 @@
                             <th class="text-left">Name</th>
                             <th class="text-left">Date Taken</th>
                             <th class="text-left">Score</th>
-                            <th class="text-left">Watch</th>
+                            <th class="text-left" style="width:150px;">Watch</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -84,7 +84,8 @@
             </div>
             <div class="col-md-3" style="padding:0px;">
                 @php
-                    $Quizzes = App\Models\Quiz::where("status", "active")->where("creator_id", 0)->orWhere("creator_id", auth()->user()->orgran_id)->get();
+                    $creators = [0, auth()->user()->organ_id];
+                    $Quizzes = App\Models\Quiz::where("status", "active")->whereIn("creator_id", $creators)->get();
                     $quiz_ids = [];
                     foreach($Quizzes as $q){
                         $quiz_ids[] = $q->id;

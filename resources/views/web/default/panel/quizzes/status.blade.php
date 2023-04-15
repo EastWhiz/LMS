@@ -33,6 +33,7 @@
                     </div> --}}
                     @php
                         $rs = json_decode($quizResult->results, true);
+                        $tq = $quizResult->quiz->quizQuestions->count();
                         $total_marks = 0;
                         $marks = 0;
                         foreach($rs as $k=>$v){
@@ -43,8 +44,10 @@
                                 }
                             }
                         }
-                        $per = ($marks / $total_marks) * 100;
-                        $per = round($per);
+                        if ($tq> 0 and $marks > 0){
+                            $per = ($marks / $tq) * 100;
+                        }
+                        $per = round($per, 2);
                     @endphp
                     <div class="col-12 col-md-12 mt-30 mt-md-0 d-flex align-items-center justify-content-center mt-5 mt-md-0">
                         <div class="d-flex flex-column align-items-center text-center">
@@ -69,7 +72,7 @@
                     <img src="/assets/default/img/no-results/497.png" alt="">
                 </div>
                 <div class="d-flex align-items-center flex-column mt-30 text-center">
-                    <h2 class="section-title">You has scrored {{$marks}} out of  {{$total_marks}}.</h2>
+                    <h2 class="section-title">You has scrored {{$marks}} out of  {{$tq}}.</h2>
                     {{-- <p class="mt-5 text-center">{!! trans('quiz.status_passed_hint',['grade' => $quizResult->user_grade.'/'.$quizQuestions->sum('grade')]) !!}</p> --}}
 
                     @if($quiz->certificate)

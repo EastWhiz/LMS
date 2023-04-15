@@ -17,22 +17,22 @@
             </p>
 
             <div class="activities-container shadow-sm rounded-lg mt-25 p-20 p-lg-35">
-                <div class="row">
-                    <div class="col-6 col-md-3 d-flex align-items-center justify-content-center">
+                <div class="row justify-content-between">
+                    {{-- <div class="col-6 col-md-3 d-flex align-items-center justify-content-center">
                         <div class="d-flex flex-column align-items-center text-center">
                             <img src="/assets/default/img/activity/58.svg" width="64" height="64" alt="">
                             <strong class="font-30 font-weight-bold text-secondary mt-5">{{  $quiz->pass_mark }}/{{  $quizQuestions->sum('grade') }}</strong>
                             <span class="font-16 text-gray">{{ trans('public.min') }} {{ trans('quiz.grade') }}</span>
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <div class="col-6 col-md-3 d-flex align-items-center justify-content-center">
+                    {{-- <div class="col-6 col-md-3 d-flex align-items-center justify-content-center">
                         <div class="d-flex flex-column align-items-center text-center">
                             <img src="/assets/default/img/activity/88.svg" width="64" height="64" alt="">
                             <strong class="font-30 font-weight-bold text-secondary mt-5">{{ $attempt_count }}/{{ $quiz->attempt }}</strong>
                             <span class="font-16 text-gray">{{ trans('quiz.attempts') }}</span>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="col-6 col-md-3 mt-30 mt-md-0 d-flex align-items-center justify-content-center mt-5 mt-md-0">
                         <div class="d-flex flex-column align-items-center text-center">
@@ -60,26 +60,26 @@
                 </div>
             </div>
         </section>
-
+        <style>
+            .ques{display: flex; flex-wrap: wrap;justify-content: space-between;}
+            .ques fieldset{flex:0 0 48%; margin-bottom:30px;}
+            .ques select{width:100%; padding:7px 15px;border-radius:6px;}
+            .quiz-form .question-multi-answers{display: block;}
+            .ques .true_false{cursor: pointer; display: flex; align-items: center;max-width:100px;}
+            .ques .true_false input{margin-right:10px;width:20px;height: 20px;}
+            .ques .true_false:first-child{margin-bottom:5px;}
+        </style>
         <section class="mt-30 quiz-form">
             <form action="/panel/quizzes/{{ $quiz->id }}/store-result" method="post" class="">
                 {{ csrf_field() }}
-                <input type="hidden" name="quiz_result_id" value="{{ $newQuizStart->id }}" class="form-control" placeholder=""/>
+                <input type="hidden" name="quiz_result_id" value="0" class="form-control" placeholder=""/>
                 <input type="hidden" name="attempt_number" value="{{ $attempt_count }}" class="form-control" placeholder=""/>
-
+                <div class="ques">
                 @foreach($quizQuestions as $key => $question)
 
-                    <fieldset class="question-step question-step-{{ $key + 1 }}">
+                    <fieldset class="" style="display: inline-block;">
                         <div class="rounded-lg shadow-sm py-25 px-20">
                             <div class="quiz-card">
-
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <p class="text-gray font-14">
-                                        <span>{{ trans('quiz.question_grade') }} : {{ $question->grade }} </span>
-                                    </p>
-
-                                    <div class="rounded-sm border border-gray200 p-15 text-gray">{{ $key + 1 }}/{{ $quizQuestions->count() }}</div>
-                                </div>
 
                                 @if(!empty($question->image) or !empty($question->video))
                                     <div class="quiz-question-media-card rounded-lg mt-10 mb-15">
@@ -94,15 +94,25 @@
                                 @endif
 
                                 <div class="">
-                                    <h3 class="font-weight-bold font-16 text-secondary">{{ $question->title }}</h3>
+                                    <h3 class="font-weight-bold font-16 text-secondary">
+                                        Q{{$key+1}}:- {{ $question->title }}</h3>
                                 </div>
 
                                 @if($question->type === \App\Models\QuizzesQuestion::$descriptive)
                                     <div class="form-group mt-35">
                                         <textarea name="question[{{ $question->id }}][answer]" rows="15" class="form-control"></textarea>
                                     </div>
+                                @elseif($question->type === \App\Models\QuizzesQuestion::$true_false)
+                                    <div class="form-group mt-20">
+                                        @foreach($question->quizzesQuestionsAnswers as $key => $answer)
+                                        <label class="true_false">
+                                            <input type="radio" value="{{$answer->id}}" name="question[{{ $question->id }}][answer">
+                                            {{$answer->title}}
+                                        </label><br>
+                                        @endforeach
+                                    </div>
                                 @else
-                                    <div class="question-multi-answers mt-35">
+                                    <div class="question-multi-answers mt-20">
                                         <select name="question[{{ $question->id }}][answer]">
                                             <option value="">Select Option</option>
                                         @foreach($question->quizzesQuestionsAnswers as $key => $answer)
@@ -131,11 +141,12 @@
                         </div>
                     </fieldset>
                 @endforeach
+                </div>
 
                 <div class="d-flex align-items-center mt-30">
-                    <button type="button" class="previous btn btn-sm btn-primary mr-20">{{ trans('quiz.previous_question') }}</button>
-                    <button type="button" class="next btn btn-sm btn-primary mr-auto">{{ trans('quiz.next_question') }}</button>
-                    <button type="submit" class="finish btn btn-sm btn-danger">{{ trans('public.finish') }}</button>
+                    {{-- <button type="button" class="previous btn btn-sm btn-primary mr-20">{{ trans('quiz.previous_question') }}</button>
+                    <button type="button" class="next btn btn-sm btn-primary mr-auto">{{ trans('quiz.next_question') }}</button> --}}
+                    <button type="submit" class="finish btn btn-sm btn-primary">Send</button>
                 </div>
             </form>
         </section>

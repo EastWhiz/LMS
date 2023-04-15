@@ -398,21 +398,21 @@ class QuizController extends Controller
             }
 
             if (!isset($quiz->attempt) or ($userQuizDone->count() < $quiz->attempt and !$status_pass)) {
-                $newQuizStart = QuizzesResult::create([
-                    'quiz_id' => $quiz->id,
-                    'user_id' => $user->id,
-                    'results' => '',
-                    'user_grade' => 0,
-                    'status' => 'waiting',
-                    'created_at' => time()
-                ]);
+                // $newQuizStart = QuizzesResult::create([
+                //     'quiz_id' => $quiz->id,
+                //     'user_id' => $user->id,
+                //     'results' => '',
+                //     'user_grade' => 0,
+                //     'status' => 'waiting',
+                //     'created_at' => time()
+                // ]);
 
                 $data = [
                     'pageTitle' => trans('quiz.quiz_start'),
                     'quiz' => $quiz,
                     'quizQuestions' => $quiz->quizQuestions,
                     'attempt_count' => $userQuizDone->count() + 1,
-                    'newQuizStart' => $newQuizStart
+                    'newQuizStart' => array()
                 ];
 
                 return view(getTemplate() . '.panel.quizzes.start', $data);
@@ -430,8 +430,17 @@ class QuizController extends Controller
 
         if ($quiz) {
             $results = $request->get('question');
-            $quizResultId = $request->get('quiz_result_id');
+            $newQuizStart = QuizzesResult::create([
+                    'quiz_id' => $id,
+                    'user_id' => $user->id,
+                    'results' => '',
+                    'user_grade' => 0,
+                    'status' => 'waiting',
+                    'created_at' => time()
+            ]);
+            $quizResultId = $newQuizStart->id;
 
+            
             if (!empty($quizResultId)) {
 
                 $quizResult = QuizzesResult::where('id', $quizResultId)
